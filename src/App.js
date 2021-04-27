@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import './App.css';
 import Login from './components/Login';
 import Feed from './components/Feed';
 // import stream from 'getstream';
-const stream = require('getstream');
-const key = process.env['REACT_APP_KEY'];
-const appID = process.env["REACT_APP_ID"];
 
 function App() {
   const [view, setView] = useState('login');
