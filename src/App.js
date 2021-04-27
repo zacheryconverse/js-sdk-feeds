@@ -11,6 +11,7 @@ const appID = process.env["REACT_APP_ID"];
 function App() {
   // const [token, setToken] = useState('');
   const [view, setView] = useState('login');
+  const [client, setClient] = useState("");
 
   // useEffect(() => {
   //   axios.post('http://localhost:8000/token', {})
@@ -24,9 +25,9 @@ function App() {
   return (
     <div className="App">
       {view === 'login' ? (
-        <Login setView={setView} />
+        <Login setView={setView} setClient={setClient} />
         ) : view === 'feed' ? (
-          <Feed />
+          <Feed client={client} />
         ) : '' }
     </div>
   )
