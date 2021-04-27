@@ -15,6 +15,7 @@ export default function Login({ setView, setClient }) {
     axios
       .post("http://localhost:8000/token", { userID })
       .then((res) => (client = stream.connect(key, res.data, appID)))
+      .then(() => console.log(client, 'client'))
       .then(() => setView("feed"))
       .then(() => setClient(client))
       .catch((err) => console.error("ERROR", err));

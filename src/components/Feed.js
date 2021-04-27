@@ -5,12 +5,15 @@ export default function Feed({ client }) {
 
   const addActivity = async (e) => {
     e.preventDefault();
-    const zacheryFeed = client.feed('user', 'Zachery');
+    const zacheryFeed = client.feed(
+      "user",
+      "Zachery"
+    );
     await zacheryFeed.addActivity({
-      actor: "Zachery",
       verb: "add",
-      object: "picture:10",
-      foreign_id: "picture:10",
+      object: "picture:9",
+      foreign_id: "picture:9",
+      time: new Date(),
       text: message,
     });
     setMessage('');
