@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './App.css';
+import Login from './components/Login';
+import Feed from './components/Feed';
+// import stream from 'getstream';
+const stream = require('getstream');
+const key = process.env['REACT_APP_KEY'];
+const appID = process.env["REACT_APP_ID"];
 
 function App() {
+  // const [token, setToken] = useState('');
+  const [view, setView] = useState('login');
+
+  // useEffect(() => {
+  //   axios.post('http://localhost:8000/token', {})
+  //   // .then((res) => setToken(res.data))
+  //   .catch((err) => console.error(err));
+  // }, []);
+
+  // const client = stream.connect(key, token, appID);
+  // console.log('CLIENT', client);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {view === 'login' ? (
+        <Login setView={setView} />
+        ) : view === 'feed' ? (
+          <Feed />
+        ) : '' }
     </div>
-  );
+  )
 }
 
 export default App;

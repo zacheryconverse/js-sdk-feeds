@@ -17,10 +17,11 @@ app.post("/token", async (req, res) => {
   const { userID } = req.body;
   const token = client.createUserToken(userID);
   try {
+    // console.log(token);
     res.status(200).send(token);
   } catch (err) {
     res.status(500).send("Server Error: ", err);
   }
 });
-//  hi
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
