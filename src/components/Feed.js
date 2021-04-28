@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import ActivityList from "./ActivityList";
+// import FileUploader from './FileUploader';
 
 export default function Feed({ client, feed }) {
   const [message, setMessage] = useState("");
@@ -23,7 +24,7 @@ export default function Feed({ client, feed }) {
       object: "picture:9",
       foreign_id: "picture:9",
       time: new Date(),
-      file: file || '',
+      file: file,
       text: message,
     });
     setMessage("");
@@ -42,6 +43,7 @@ export default function Feed({ client, feed }) {
           placeholder="Share something..."
           onChange={(e) => setMessage(e.target.value)}
         ></input>
+        {/* <FileUploader file={file} /> */}
         <input
           type='file'
           value={file}
