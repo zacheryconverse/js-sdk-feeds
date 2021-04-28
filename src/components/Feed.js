@@ -1,16 +1,16 @@
 import { useState, useEffect, Fragment } from "react";
+import ActivityList from "./ActivityList";
 
 export default function Feed({ client, feed }) {
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    // const zacheryFeed = client.feed("user", client.userId);
-    const getActivities = async () => {
-      const results = await feed.get({ limit: 10 });
-      console.log(results, 'results');
-    };
-    getActivities()
-  }, [feed])
+  // useEffect(() => {
+  //   const getActivities = async () => {
+  //     const results = await feed.get({ limit: 10 });
+  //     console.log(results, 'results');
+  //   };
+  //   getActivities()
+  // }, [feed])
 
   const addActivity = async (e) => {
     e.preventDefault();
@@ -41,6 +41,7 @@ export default function Feed({ client, feed }) {
           onChange={(e) => setMessage(e.target.value)}
         ></input>
       </form>
+      <ActivityList feed={feed} />
     </Fragment>
   );
 }
