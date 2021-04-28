@@ -3,6 +3,7 @@ import ActivityList from "./ActivityList";
 
 export default function Feed({ client, feed }) {
   const [message, setMessage] = useState("");
+  const [file, setFile] = useState('');
 
   // useEffect(() => {
   //   const getActivities = async () => {
@@ -22,6 +23,7 @@ export default function Feed({ client, feed }) {
       object: "picture:9",
       foreign_id: "picture:9",
       time: new Date(),
+      file: file || '',
       text: message,
     });
     setMessage("");
@@ -40,6 +42,11 @@ export default function Feed({ client, feed }) {
           placeholder="Share something..."
           onChange={(e) => setMessage(e.target.value)}
         ></input>
+        <input
+          type='file'
+          value={file}
+          onChange={(e) => setFile(e.target.files[0])}
+        />
       </form>
       <ActivityList feed={feed} />
     </Fragment>
