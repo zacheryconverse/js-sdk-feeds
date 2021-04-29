@@ -9,12 +9,20 @@ function App() {
   const [client, setClient] = useState("");
   const [feed, setFeed] = useState("");
 
+
+  const followZach = () => {
+    feed.follow('user', 'Zachery')
+  }
+  console.log()
   return (
     <div className="App">
       {view === "login" ? (
         <Login setView={setView} setClient={setClient} setFeed={setFeed} />
       ) : view === "feed" ? (
+        <div>
         <Feed client={client} feed={feed} />
+        <button onClick={() => followZach()}>Follow Zach</button>
+        </div>
       ) : (
         ""
       )}

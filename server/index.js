@@ -1,7 +1,10 @@
 const express = require("express");
 const stream = require("getstream");
 const cors = require("cors");
-require("dotenv").config({ path: "server/.env" });
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
+
+// require("dotenv").config({ path: "server/.env" });
 
 const key = process.env.REACT_APP_KEY;
 const secret = process.env.REACT_APP_SECRET;
@@ -17,11 +20,11 @@ app.post("/token", async (req, res) => {
   const { userID } = req.body;
   const token = client.createUserToken(userID);
   try {
-    // console.log(token);
+    console.log(token);
     res.status(200).send(token);
   } catch (err) {
     res.status(500).send("Server Error: ", err);
   }
 });
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`, process.env));

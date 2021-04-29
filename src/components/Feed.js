@@ -50,7 +50,7 @@ export default function Feed({ client, feed }) {
           onChange={(e) => setFile(e.target.files[0])}
         />
       </form>
-      <ActivityList feed={feed} />
+      <ActivityList feed={feed} client={client}/>
     </Fragment>
   );
 }
