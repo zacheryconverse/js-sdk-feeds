@@ -6,7 +6,7 @@ export default function FeedList({ feed }) {
 
   useEffect(() => {
     const getActivities = async () => {
-      const results = await feed.get({ limit: 10 });
+      const results = await feed.get({  });
       setActivities(results.results);
     };
     getActivities();

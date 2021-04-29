@@ -19,7 +19,7 @@ export default function Feed({ client, feed }) {
     // const zacheryFeed = client.feed("user", client.userId);
 
     await feed.addActivity({
-      // actor: `SU:${client.userId}`,
+      actor: `SU:${client.userId}`,
       verb: "add",
       object: "picture:9",
       foreign_id: "picture:9",
