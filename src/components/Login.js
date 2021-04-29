@@ -5,16 +5,20 @@ const stream = require("getstream");
 const key = process.env["REACT_APP_KEY"];
 const appID = process.env["REACT_APP_ID"];
 
-export default function Login({ setView, setClient }) {
+export default function Login({ setView, setClient, setFeed }) {
   const [userID, setUserID] = useState("");
 
   const handleUserIDSubmit = (e) => {
     e.preventDefault();
     // console.log(client, 'client');
     let client;
+    let zacheryFeed;
     axios
       .post("http://localhost:8000/token", { userID })
       .then((res) => (client = stream.connect(key, res.data, appID)))
+      // .then(() => console.log(client, 'client'))
+      .then(() => zacheryFeed = client.feed("user", client.userId))
+      .then(() => setFeed(zacheryFeed))
       .then(() => setView("feed"))
       .then(() => setClient(client))
       .catch((err) => console.error("ERROR", err));
