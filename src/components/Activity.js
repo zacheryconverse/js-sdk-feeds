@@ -12,8 +12,9 @@ const user = client.feed('user', client.userId)
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
-      <p style={activityActor}>{activity.actor.id} at {<Moment >{activity.time}</Moment>}</p>
+      <p style={activitySmall}>{activity.actor.id} at {<Moment >{activity.time}</Moment>}</p>
       <li style={activityText}>{activity.text}</li>
+      <input type="text" placeholder="Add A Comment" style={activitySmall}></input>
       </div>
       {/* <li className="activity">{parse(activity.text)}</li> */}
       {/* <li className="activity">
@@ -22,7 +23,7 @@ const user = client.feed('user', client.userId)
         )}
       </li> */}
       {activity.actor.id === client.userId && <button style={deleteActivityBtn} onClick={() => deleteActivity()}>X</button>}
-      <input type="text" placeholder=""></input>
+
     </div>
   );
 }
@@ -41,7 +42,7 @@ const activityContainer = {
   // justifyContent: 'space-around'
 }
 
-const activityActor = {
+const activitySmall = {
   fontSize: "0.5em",
 }
 

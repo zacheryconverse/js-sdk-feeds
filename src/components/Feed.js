@@ -12,12 +12,10 @@ export default function Feed({ client, feed }) {
   //     console.log(results, 'results');
   //   };
   //   getActivities()
-  // }, [feed])
+
 
   const addActivity = async (e) => {
     e.preventDefault();
-    // const zacheryFeed = client.feed("user", client.userId);
-
     await feed.addActivity({
       actor: `SU:${client.userId}`,
       verb: "add",
