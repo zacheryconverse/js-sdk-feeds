@@ -12,6 +12,7 @@ export default function Feed({ client, feed }) {
   //     console.log(results, 'results');
   //   };
   //   getActivities()
+  
 
 
   const addActivity = async (e) => {

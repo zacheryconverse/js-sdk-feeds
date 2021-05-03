@@ -3,21 +3,20 @@ import Activity from "./Activity";
 
 export default function FeedList({ feed, client }) {
   const [activities, setActivities] = useState(null);
-
+  const [reactions, setReactions] = useState({});
   useEffect(() => {
     const getActivities = async () => {
-      const results = await feed.get({});
+      const results = await feed.get({ limit: 10 });
       setActivities(results.results);
     };
     getActivities();
   }, [feed]);
 
   const getActivities = async () => {
-    const results = await feed.get({});
+    const results = await feed.get({ limit: 10 });
     setActivities(results.results);
-    };
+  };
 
-    
   return (
     <div>
       <button onClick={() => getActivities()}>Click To Refresh</button>
