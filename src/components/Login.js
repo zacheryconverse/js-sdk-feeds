@@ -8,18 +8,18 @@ const appID = process.env["REACT_APP_ID"];
 export default function Login({ setView, setClient, setFeed }) {
   const [userID, setUserID] = useState("");
 
-  const handleUserIDSubmit = (e) => {
+  const handleUserIDSubmit = async (e) => {
     e.preventDefault();
-    let client;
-    let feed;
-    axios
-      .post("http://localhost:8000/token", { userID })
-      .then((res) => (client = stream.connect(key, res.data, appID)))
-      .then(() => (feed = client.feed("user", client.userId)))
-      .then(() => setFeed(feed))
-      .then(() => setView("timeline"))
-      .then(() => setClient(client))
-      .catch((err) => console.error("ERROR", err));
+    const result = await axios.post("http://localhost:8000/token", { userID });
+    try {
+      const client = stream.connect(key, result.data, appID);
+      const userFeed = client.feed("user", client.userId);
+      setFeed(userFeed);
+      setView("timeline");
+      setClient(client);
+    } catch (err) {
+      console.error("ERROR", err);
+    }
   };
 
   return (
@@ -41,7 +41,7 @@ export default function Login({ setView, setClient, setFeed }) {
 }
 
 const loginBox = {
-  display: 'flex',
-  flexDirection: 'column',
-  textAlign: 'center'
-}
+  display: "flex",
+  flexDirection: "column",
+  textAlign: "center",
+};
