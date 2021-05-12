@@ -1,0 +1,9 @@
+.site-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2em;
+    padding: 30px;
+    background-color: rgb(96, 255, 255);
+    background-image : linear-gradient(to bottom, 
+                    rgba(96,255,255, 0), 
+                    rgb(0, 151, 221) 100%);
+}
