@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { act } from "react-dom/cjs/react-dom-test-utils.production.min";
 import { formatTime } from "../utils/formatTime";
+import isLiked from "../utils/isLiked";
+import countComments from "../utils/countComments";
 
 export default function Activity({ activity, client }) {
   const [comment, setComment] = useState("");
@@ -18,6 +21,12 @@ export default function Activity({ activity, client }) {
   const submitComment = () => {
     client.reactions.add("comment", activity.id, { text: comment });
   };
+
+  const addLike = async () => {
+    await client.reactions.add("like", activity.id);
+    console.log(client.reactions);
+  }
+
   const user = client.feed("user", client.userId);
   const deleteActivity = () => {
     user.removeActivity(activity.id);
@@ -33,6 +42,7 @@ export default function Activity({ activity, client }) {
         )
     );
   };
+
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
@@ -46,8 +56,9 @@ export default function Activity({ activity, client }) {
           placeholder="Add A Comment"
           style={activitySmall}
         ></input>
+        <button className={isLiked(reactions)} onClick={() => addLike()}>Like</button>
         <button onClick={() => submitComment()}>Add Comment</button>
-        <p style={activitySmall}>Comments: ({reactions.length})</p>
+        <p style={activitySmall}>Comments: ({countComments(reactions)})</p>
         {reactions && reactions.length ? generateReactions() : ""}
       </div>
       {activity.actor.id === client.userId && (

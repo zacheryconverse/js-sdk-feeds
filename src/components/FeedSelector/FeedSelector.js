@@ -4,7 +4,7 @@ import global from '../../icons/global.svg';
 import timeline from '../../icons/timeline.svg'
 import user from '../../icons/user.svg'
 
-export default function FeedSelector({ setFeed, setActiveFeed }) {
+export default function FeedSelector({ setUserFeed, setActiveFeed }) {
     return (
         <div className="feed-selector">
         <button className="feed-selector-btn" onClick={() => setActiveFeed('user')}><img src={user} className="nav-icon" alt="user feed" />My Feed</button>

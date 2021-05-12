@@ -3,7 +3,6 @@ body {
 }
 
 .App {
-  /* text-align: center; */
   font-size: calc(10px + 2vmin);
   background-color: #e2e2e2;
   color: white;
@@ -13,4 +12,9 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     overflow: auto;
+}
+
+.like {
+  background-color: green;
+  color: white;
 }

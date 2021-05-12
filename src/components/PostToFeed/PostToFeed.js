@@ -2,7 +2,6 @@ import { useState  } from "react";
 import './PostToFeed.css'
 export default function PostToFeed({ client, userFeed }) {
   const [message, setMessage] = useState("");
-  const [file, setFile] = useState('');
 
   const addActivity = async (e) => {
     e.preventDefault();
@@ -13,7 +12,6 @@ export default function PostToFeed({ client, userFeed }) {
       object: "picture:9",
       foreign_id: "picture:9",
       time: new Date(),
-      file: file,
       text: message,
     });
     setMessage("");
@@ -31,11 +29,6 @@ export default function PostToFeed({ client, userFeed }) {
           placeholder="Share something..."
           onChange={(e) => setMessage(e.target.value)}
         ></input>
-        <input
-          type='file'
-          value={file}
-          onChange={(e) => setFile(e.target.files[0])}
-        />
       </form>
     </div>
   );
