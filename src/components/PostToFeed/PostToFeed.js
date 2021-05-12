@@ -1,20 +1,10 @@
-import { useState, useEffect, Fragment } from "react";
-import ActivityList from "./ActivityList";
+import { useState  } from "react";
 // import FileUploader from './FileUploader';
-
-export default function Feed({ client, feed }) {
+import './PostToFeed.css'
+export default function PostToFeed({ client, feed }) {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState('');
-
-  // useEffect(() => {
-  //   const getActivities = async () => {
-  //     const results = await feed.get({ limit: 10 });
-  //     console.log(results, 'results');
-  //   };
-  //   getActivities()
   
-
-
   const addActivity = async (e) => {
     e.preventDefault();
     await feed.addActivity({
@@ -27,11 +17,10 @@ export default function Feed({ client, feed }) {
       text: message,
     });
     setMessage("");
-    // console.log(zacheryFeed, 'Feed');
   };
 
   return (
-    <Fragment>
+    <div className="post-to-feed">
       <form onSubmit={addActivity}>
         <label>Share a post </label>
         <input
@@ -49,7 +38,6 @@ export default function Feed({ client, feed }) {
           onChange={(e) => setFile(e.target.files[0])}
         />
       </form>
-      <ActivityList feed={feed} client={client}/>
-    </Fragment>
+    </div>
   );
 }
