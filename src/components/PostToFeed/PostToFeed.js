@@ -1,17 +1,9 @@
-import { useState, useEffect, Fragment } from "react";
-import ActivityList from "../ActivityList/ActivityList";
+import { useState  } from "react";
 // import FileUploader from './FileUploader';
 import './PostToFeed.css'
 export default function PostToFeed({ client, feed }) {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState('');
-
-  // useEffect(() => {
-  //   const getActivities = async () => {
-  //     const results = await feed.get({ limit: 10 });
-  //     console.log(results, 'results');
-  //   };
-  //   getActivities()
   
   const addActivity = async (e) => {
     e.preventDefault();
@@ -25,7 +17,6 @@ export default function PostToFeed({ client, feed }) {
       text: message,
     });
     setMessage("");
-    // console.log(zacheryFeed, 'Feed');
   };
 
   return (

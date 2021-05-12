@@ -1,18 +1,29 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import Activity from "../Activity";
-import './ActivityList.css';
-export default function ActivityList({ feed, client }) {
+import "./ActivityList.css";
+export default function ActivityList({ feed, client, activeFeed }) {
   const [activities, setActivities] = useState(null);
   const [reactions, setReactions] = useState({});
+  console.log(activeFeed);
   useEffect(() => {
     const getActivities = async () => {
       if (feed) {
         const results = await feed.get({ limit: 10 });
         setActivities(results.results);
       }
+      if (activeFeed === "user") {
+        // setActivities()
+        setActivities(
+          activities.filter((activity) =>
+            activity.actor.id
+              ? activity.actor.id === client.userId
+              : activity.actor === client.userId
+          )
+        );
+      }
     };
     getActivities();
-  }, [feed]);
+  }, [feed, activeFeed]);
 
   const getActivities = async () => {
     const results = await feed.get({ limit: 10 });
