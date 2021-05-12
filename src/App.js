@@ -1,16 +1,17 @@
 import { useState } from "react";
 import "./App.css";
+// import stream from 'getstream';
+import ActivityList from "./components/ActivityList/ActivityList";
+import FeedSelector from "./components/FeedSelector/FeedSelector";
 import Login from "./components/Login";
 import PostToFeed from "./components/PostToFeed/PostToFeed";
-// import stream from 'getstream';
-import FeedSelector from "./components/FeedSelector/FeedSelector";
-import ActivityList from "./components/ActivityList/ActivityList";
 import { Banner } from "./components/Banner/Banner";
+
 function App() {
-  const [view, setView] = useState("login");
+  const [activeFeed, setActiveFeed] = useState("timeline");
   const [client, setClient] = useState("");
   const [feed, setFeed] = useState("");
-  const [activeFeed, setActiveFeed] = useState("timeline");
+  const [view, setView] = useState("login");
 
   return (
     <div className="App">
@@ -20,7 +21,7 @@ function App() {
         <div>
           <Banner />
           <FeedSelector setFeed={setFeed} setActiveFeed={setActiveFeed} />
-          <PostToFeed client={client} />
+          <PostToFeed client={client} feed={feed} />
           <ActivityList client={client} feed={feed} activeFeed={activeFeed} />
         </div>
       )}
