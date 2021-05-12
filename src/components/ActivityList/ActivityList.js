@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ feed, client, activeFeed }) {
+export default function ActivityList({ userFeed, client, activeFeed }) {
   const [activities, setActivities] = useState(null);
   const [reactions, setReactions] = useState({});
   console.log(activeFeed);
   useEffect(() => {
     const getActivities = async () => {
-      if (feed) {
-        const results = await feed.get({ limit: 10 });
+      if (userFeed) {
+        const results = await userFeed.get({ limit: 10 });
         setActivities(results.results);
       }
       if (activeFeed === "user") {
@@ -23,10 +23,10 @@ export default function ActivityList({ feed, client, activeFeed }) {
       }
     };
     getActivities();
-  }, [feed, activeFeed]);
+  }, [userFeed, activeFeed]);
 
   const getActivities = async () => {
-    const results = await feed.get({ limit: 10 });
+    const results = await userFeed.get({ limit: 10 });
     setActivities(results.results);
   };
 
