@@ -67,15 +67,12 @@ export default function Activity({ activity, client }) {
 const activityContainer = {
   display: "flex",
   background: "white",
-  // width: "12%",
   border: "1px solid red",
   borderRadius: "10px",
   color: "black",
   width: "50%",
-  // height: '90%',
   margin: "10px",
   padding: "25px 0",
-  // justifyContent: 'space-around'
 };
 
 const activitySmall = {
