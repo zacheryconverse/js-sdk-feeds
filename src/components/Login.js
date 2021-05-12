@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 const stream = require("getstream");
 
@@ -10,7 +10,6 @@ export default function Login({ setView, setClient, setFeed }) {
 
   const handleUserIDSubmit = (e) => {
     e.preventDefault();
-    // console.log(client, 'client');
     let client;
     let feed;
     axios
@@ -18,7 +17,7 @@ export default function Login({ setView, setClient, setFeed }) {
       .then((res) => (client = stream.connect(key, res.data, appID)))
       .then(() => (feed = client.feed("user", client.userId)))
       .then(() => setFeed(feed))
-      .then(() => setView("feed"))
+      .then(() => setView("timeline"))
       .then(() => setClient(client))
       .catch((err) => console.error("ERROR", err));
   };
