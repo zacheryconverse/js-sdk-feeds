@@ -7,7 +7,7 @@ import PostToFeed from "./components/PostToFeed/PostToFeed";
 import { Banner } from "./components/Banner/Banner";
 
 function App() {
-  const [activeFeed, setActiveFeed] = useState("timeline");
+  const [activeFeed, setActiveFeed] = useState("user");
   const [client, setClient] = useState("");
   const [userFeed, setUserFeed] = useState("");
   const [timelineFeed, setTimelineFeed] = useState("");

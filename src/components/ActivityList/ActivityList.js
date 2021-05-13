@@ -1,40 +1,20 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ userFeed, timelineFeed, client, activeFeed }) {
+export default function ActivityList({ timelineFeed, client, activeFeed }) {
   const [activities, setActivities] = useState(null);
-  // const [reactions, setReactions] = useState({});
+
+  const userFeed = client.feed("user", client.userId);
 
   useEffect(() => {
     const getActivities = async () => {
-      if (userFeed) {
-        const results = await userFeed.get({ limit: 10 });
-        setActivities(results.results);
-      }
-      // if (activeFeed === "user") {
-      //   console.log(activeFeed, 'user');
-      //   setActivities(
-      //     activities.filter((activity) =>
-      //       activity.actor.id
-      //         ? activity.actor.id === client.userId
-      //         : activity.actor === client.userId
-      //     )
-      //   );
-      // }
-      // if (activeFeed === "timeline") {
-      //   console.log(activities, activeFeed);
-      //   // setActivities(
-      //   //   activities.filter((activity) =>
-      //   //     activity.actor.id
-      //   //       ? activity.actor.id === client.userId
-      //   //       : activity.actor === client.userId
-      //   //   )
-      //   // );
-      // }
+      const results = await userFeed.get({ limit: 10 });
+      setActivities(results.results);
     };
+
     getActivities();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userFeed, activeFeed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getActivities = async () => {
     const results = await userFeed.get({ limit: 10 });

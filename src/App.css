@@ -2,19 +2,48 @@ body {
   margin: 0;
 }
 
+p {
+  margin: .5rem;
+}
+
 .App {
   font-size: calc(10px + 2vmin);
   background-color: #e2e2e2;
   color: white;
   min-height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    overflow: auto;
+  overflow: auto;
 }
 
-.like {
-  background-color: green;
-  color: white;
+.not-liked {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  margin: 0.5rem;
 }
+
+.liked {
+  background-color: green;
+  border: none;
+  border-radius: 3rem;
+  fill: green;
+  height: 3rem;
+  width: 3rem;
+  margin: 0.5rem;
+}
+
+.like-icon {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+}
+
+/* button:hover {
+  fill: blue;
+  background-color: blue;
+} */

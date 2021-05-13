@@ -13,12 +13,12 @@ export default function Login({ setView, setClient, setUserFeed, setTimelineFeed
     const result = await axios.post("http://localhost:8000/token", { userID });
     try {
       const client = stream.connect(key, result.data, appID);
+      setClient(client);
       const userFeed = client.feed("user", client.userId);
       setUserFeed(userFeed);
-      const timelineFeed = client.feed("timeline", client.userId);
-      setTimelineFeed(timelineFeed);
-      setView("timeline");
-      setClient(client);
+      // const timelineFeed = client.feed("timeline", client.userId);
+      // setTimelineFeed(timelineFeed);
+      setView("");
     } catch (err) {
       console.error("ERROR", err);
     }
