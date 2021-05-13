@@ -22,20 +22,15 @@ export default function PostToFeed({ client, feed }) {
   return (
     <div className="post-to-feed">
       <form onSubmit={addActivity}>
-        <label>Share a post </label>
         <input
+        className="activity-input"
           autoFocus
           type="text"
           name="activity"
           value={message}
-          placeholder="Share something..."
+          placeholder="What's on your mind?"
           onChange={(e) => setMessage(e.target.value)}
         ></input>
-        <input
-          type='file'
-          value={file}
-          onChange={(e) => setFile(e.target.files[0])}
-        />
       </form>
     </div>
   );
