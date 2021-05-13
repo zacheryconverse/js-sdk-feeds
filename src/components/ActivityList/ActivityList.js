@@ -4,22 +4,25 @@ import "./ActivityList.css";
 export default function ActivityList({ feed, client, activeFeed }) {
   const [activities, setActivities] = useState(null);
   const [reactions, setReactions] = useState({});
-  console.log(activeFeed);
+  const callback = data => { 
+    console.log(data); 
+  }; 
+   
+  const successCallback = () => { 
+    console.log('now listening to changes in realtime'); 
+  }; 
+   
+  const failCallback = data => { 
+    alert('something went wrong, check the console logs'); 
+    console.log(data); 
+  }; 
+
+  feed.subscribe(callback).then(successCallback, failCallback)
   useEffect(() => {
     const getActivities = async () => {
       if (feed) {
         const results = await feed.get({ limit: 10 });
         setActivities(results.results);
-      }
-      if (activeFeed === "user") {
-        // setActivities()
-        setActivities(
-          activities.filter((activity) =>
-            activity.actor.id
-              ? activity.actor.id === client.userId
-              : activity.actor === client.userId
-          )
-        );
       }
     };
     getActivities();

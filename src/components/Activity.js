@@ -38,7 +38,7 @@ export default function Activity({ activity, client }) {
     <div style={activityContainer}>
       <div style={activityLeft}>
         <p style={activitySmall}>
-          {activity.actor.id} at {formatTime(new Date(activity.time))} on {moment(activity.time).format('MMMM Do')}
+          {activity.actor.id} - {formatTime(new Date(activity.time))} on {moment(activity.time).format('MMMM Do')}
         </p>
         <li style={activityText}>{activity.text}</li>
         <input
@@ -62,17 +62,19 @@ export default function Activity({ activity, client }) {
 
 const activityContainer = {
   display: "flex",
-  background: "white",
-  border: "1px solid red",
-  borderRadius: "10px",
+  background:  "linear-gradient(to right, rgba(0, 151, 221, 100), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(0, 151, 221, 50))",
+  borderBottom: "1px solid grey",
+  // borderRadius: "10px",
   color: "black",
-  width: "50%",
-  margin: "10px",
-  padding: "25px 0",
+  // margin: "10px",
+  // padding: "25px 0",
+  paddingLeft: "200px",
+  width: "65vw"
 };
 
 const activitySmall = {
-  fontSize: "0.5em",
+  fontSize: "0.8em",
+
 };
 
 const activityText = {
