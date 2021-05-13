@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { formatTime } from "../utils/formatTime";
+import formatTime from "../utils/formatTime";
+import LikeButton from "./LikeButton";
+import Comments from "./Comments";
+import DeleteActivity from "./DeleteActivity";
 
 export default function Activity({ activity, client }) {
-  const [comment, setComment] = useState("");
   const [reactions, setReactions] = useState([]);
+
+  const user = client.feed("user", client.userId);
 
   useEffect(() => {
     const getReactions = async () => {
@@ -15,24 +19,6 @@ export default function Activity({ activity, client }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const submitComment = () => {
-    client.reactions.add("comment", activity.id, { text: comment });
-  };
-  const user = client.feed("user", client.userId);
-  const deleteActivity = () => {
-    user.removeActivity(activity.id);
-  };
-  const generateReactions = () => {
-    return reactions.map(
-      (reaction) =>
-        reaction.kind === "comment" && (
-          <p style={activitySmall} key={reaction.id}>
-            {`${reaction.data.text} - ${reaction.user_id} at
-            ${formatTime(new Date(activity.time))}`}
-          </p>
-        )
-    );
-  };
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
@@ -40,21 +26,10 @@ export default function Activity({ activity, client }) {
           {activity.actor.id} at {formatTime(new Date(activity.time))}
         </p>
         <li style={activityText}>{activity.text}</li>
-        <input
-          type="text"
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Add A Comment"
-          style={activitySmall}
-        ></input>
-        <button onClick={() => submitComment()}>Add Comment</button>
-        <p style={activitySmall}>Comments: ({reactions.length})</p>
-        {reactions && reactions.length ? generateReactions() : ""}
+        <LikeButton activity={activity} client={client} reactions={reactions} />
+        <Comments activity={activity} client={client} reactions={reactions} />
+        <DeleteActivity activity={activity} user={user} />
       </div>
-      {activity.actor.id === client.userId && (
-        <button style={deleteActivityBtn} onClick={() => deleteActivity()}>
-          X
-        </button>
-      )}
     </div>
   );
 }
@@ -65,9 +40,9 @@ const activityContainer = {
   border: "1px solid red",
   borderRadius: "10px",
   color: "black",
-  width: "50%",
+  width: "50vw",
   margin: "10px",
-  padding: "25px 0",
+  padding: "25px 20px",
 };
 
 const activitySmall = {
@@ -79,11 +54,11 @@ const activityText = {
   margin: "auto 0 auto 5px",
 };
 
-const deleteActivityBtn = {
-  color: "red",
-  height: "50%",
-  margin: "auto 0 auto auto",
-};
+// const deleteActivityBtn = {
+//   color: "red",
+//   height: "50%",
+//   margin: "auto 0 auto auto",
+// };
 
 const activityLeft = {
   display: "flex",

@@ -1,32 +1,23 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ feed, client, activeFeed }) {
+export default function ActivityList({ timelineFeed, client, activeFeed }) {
   const [activities, setActivities] = useState(null);
-  const [reactions, setReactions] = useState({});
-  console.log(activeFeed);
+
+  const userFeed = client.feed("user", client.userId);
+
   useEffect(() => {
     const getActivities = async () => {
-      if (feed) {
-        const results = await feed.get({ limit: 10 });
-        setActivities(results.results);
-      }
-      if (activeFeed === "user") {
-        // setActivities()
-        setActivities(
-          activities.filter((activity) =>
-            activity.actor.id
-              ? activity.actor.id === client.userId
-              : activity.actor === client.userId
-          )
-        );
-      }
+      const results = await userFeed.get({ limit: 10 });
+      setActivities(results.results);
     };
+
     getActivities();
-  }, [feed, activeFeed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getActivities = async () => {
-    const results = await feed.get({ limit: 10 });
+    const results = await userFeed.get({ limit: 10 });
     setActivities(results.results);
   };
 

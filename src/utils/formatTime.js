@@ -1,4 +1,4 @@
-export function formatTime(date) {
+export default function formatTime(date) {
   let hour = date.getHours();
   let minutes = date.getMinutes().toString().padStart(2, "0");
   let amOrPm = "AM";
