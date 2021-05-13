@@ -1,11 +1,14 @@
-export default function DeleteActivity({ activity, user }) {
+export default function DeleteActivity({ activity, client, user }) {
   const deleteActivity = () => {
     user.removeActivity(activity.id);
   };
 
-  return (
-    <button style={{ }} onClick={() => deleteActivity()}>
+  return activity.actor.id === client.userId ? (
+    <button
+      style={{ color: "red", width: "2rem" }}
+      onClick={() => deleteActivity()}
+    >
       X
     </button>
-  );
+  ) : null;
 }

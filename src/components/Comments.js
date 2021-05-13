@@ -1,6 +1,6 @@
 import { useState } from "react";
 import countComments from "../utils/countComments";
-import Reactions from "./Reactions";
+import CommentList from "./CommentList";
 
 export default function Comments({ activity, client, reactions }) {
   const [comment, setComment] = useState("");
@@ -21,7 +21,7 @@ export default function Comments({ activity, client, reactions }) {
       ></input>
       <button onClick={() => submitComment()}>Add Comment</button>
       <p style={activitySmall}>Comments: ({countComments(reactions)})</p>
-      <Reactions reactions={reactions} activity={activity} />
+      <CommentList activity={activity} reactions={reactions} />
     </>
   );
 }

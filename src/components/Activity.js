@@ -28,7 +28,7 @@ export default function Activity({ activity, client }) {
         <li style={activityText}>{activity.text}</li>
         <LikeButton activity={activity} client={client} reactions={reactions} />
         <Comments activity={activity} client={client} reactions={reactions} />
-        <DeleteActivity activity={activity} user={user} />
+        <DeleteActivity activity={activity} client={client} user={user} />
       </div>
     </div>
   );
@@ -53,12 +53,6 @@ const activityText = {
   listStyleType: "none",
   margin: "auto 0 auto 5px",
 };
-
-// const deleteActivityBtn = {
-//   color: "red",
-//   height: "50%",
-//   margin: "auto 0 auto auto",
-// };
 
 const activityLeft = {
   display: "flex",

@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ timelineFeed, client, activeFeed }) {
+export default function ActivityList({ client, activeFeed}) {
   const [activities, setActivities] = useState(null);
-
-  const userFeed = client.feed("user", client.userId);
 
   useEffect(() => {
     const getActivities = async () => {
-      const results = await userFeed.get({ limit: 10 });
+      const results = await activeFeed.get({ limit: 10 });
       setActivities(results.results);
     };
 
@@ -17,7 +15,7 @@ export default function ActivityList({ timelineFeed, client, activeFeed }) {
   }, []);
 
   const getActivities = async () => {
-    const results = await userFeed.get({ limit: 10 });
+    const results = await activeFeed.get({ limit: 10 });
     setActivities(results.results);
   };
 
