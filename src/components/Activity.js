@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { formatTime } from "../utils/formatTime";
-
+import moment from 'moment';
 export default function Activity({ activity, client }) {
   const [comment, setComment] = useState("");
   const [reactions, setReactions] = useState([]);
@@ -22,6 +22,7 @@ export default function Activity({ activity, client }) {
   const deleteActivity = () => {
     user.removeActivity(activity.id);
   };
+  console.log(activity)
   const generateReactions = () => {
     return reactions.map(
       (reaction) =>
@@ -37,7 +38,7 @@ export default function Activity({ activity, client }) {
     <div style={activityContainer}>
       <div style={activityLeft}>
         <p style={activitySmall}>
-          {activity.actor.id} at {formatTime(new Date(activity.time))}
+          {activity.actor.id} at {formatTime(new Date(activity.time))} on {moment(activity.time).format('MMMM Do')}
         </p>
         <li style={activityText}>{activity.text}</li>
         <input
