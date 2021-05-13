@@ -4,8 +4,8 @@ import global from "../../icons/global.svg";
 import timeline from "../../icons/timeline.svg";
 import user from "../../icons/user.svg";
 
-export default function FeedSelector({ client, setUserFeed, setActiveFeed }) {
-  const handleFeedClick = async (feedType) => {
+export default function FeedSelector({ client, setActiveFeed }) {
+  const handleFeedClick = (feedType) => {
     setActiveFeed(client.feed(feedType, client.userId));
   };
 

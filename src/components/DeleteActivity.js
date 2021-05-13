@@ -1,6 +1,6 @@
-export default function DeleteActivity({ activity, client, user }) {
+export default function DeleteActivity({ activeFeed, activity, client }) {
   const deleteActivity = () => {
-    user.removeActivity(activity.id);
+    activeFeed.removeActivity(activity.id);
   };
 
   return activity.actor.id === client.userId ? (

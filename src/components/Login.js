@@ -14,11 +14,7 @@ export default function Login({ setActiveFeed, setClient, setUserFeed, setTimeli
     try {
       const client = stream.connect(key, result.data, appID);
       setClient(client);
-      const userFeed = client.feed("user", client.userId);
-      // setUserFeed(userFeed);
-      // const timelineFeed = client.feed("timeline", client.userId);
-      // setTimelineFeed(timelineFeed);
-      setActiveFeed(userFeed);
+      setActiveFeed(client.feed("user", client.userId));
     } catch (err) {
       console.error("ERROR", err);
     }
