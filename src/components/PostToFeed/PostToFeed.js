@@ -1,12 +1,12 @@
 import { useState  } from "react";
 import './PostToFeed.css'
-export default function PostToFeed({ client, userFeed }) {
+export default function PostToFeed({ activeFeed }) {
   const [message, setMessage] = useState("");
 
   const addActivity = async (e) => {
     e.preventDefault();
-    console.log(userFeed);
-    await userFeed.addActivity({
+
+    await activeFeed.addActivity({
       // actor: `SU:${client.userId}`,
       verb: "add",
       object: "picture:9",

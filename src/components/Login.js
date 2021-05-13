@@ -5,7 +5,7 @@ const stream = require("getstream");
 const key = process.env["REACT_APP_KEY"];
 const appID = process.env["REACT_APP_ID"];
 
-export default function Login({ setView, setClient, setUserFeed, setTimelineFeed }) {
+export default function Login({ setActiveFeed, setClient, setUserFeed, setTimelineFeed }) {
   const [userID, setUserID] = useState("");
 
   const handleUserIDSubmit = async (e) => {
@@ -14,11 +14,7 @@ export default function Login({ setView, setClient, setUserFeed, setTimelineFeed
     try {
       const client = stream.connect(key, result.data, appID);
       setClient(client);
-      const userFeed = client.feed("user", client.userId);
-      setUserFeed(userFeed);
-      // const timelineFeed = client.feed("timeline", client.userId);
-      // setTimelineFeed(timelineFeed);
-      setView("");
+      setActiveFeed(client.feed("user", client.userId));
     } catch (err) {
       console.error("ERROR", err);
     }

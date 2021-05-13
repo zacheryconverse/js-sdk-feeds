@@ -4,10 +4,8 @@ import LikeButton from "./LikeButton";
 import Comments from "./Comments";
 import DeleteActivity from "./DeleteActivity";
 
-export default function Activity({ activity, client }) {
+export default function Activity({ activeFeed, activity, client }) {
   const [reactions, setReactions] = useState([]);
-
-  const user = client.feed("user", client.userId);
 
   useEffect(() => {
     const getReactions = async () => {
@@ -28,7 +26,7 @@ export default function Activity({ activity, client }) {
         <li style={activityText}>{activity.text}</li>
         <LikeButton activity={activity} client={client} reactions={reactions} />
         <Comments activity={activity} client={client} reactions={reactions} />
-        <DeleteActivity activity={activity} user={user} />
+        <DeleteActivity activity={activity} client={client} activeFeed={activeFeed} />
       </div>
     </div>
   );
@@ -53,12 +51,6 @@ const activityText = {
   listStyleType: "none",
   margin: "auto 0 auto 5px",
 };
-
-// const deleteActivityBtn = {
-//   color: "red",
-//   height: "50%",
-//   margin: "auto 0 auto auto",
-// };
 
 const activityLeft = {
   display: "flex",

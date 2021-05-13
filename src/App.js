@@ -7,33 +7,21 @@ import PostToFeed from "./components/PostToFeed/PostToFeed";
 import { Banner } from "./components/Banner/Banner";
 
 function App() {
-  const [activeFeed, setActiveFeed] = useState("user");
+  const [activeFeed, setActiveFeed] = useState("");
   const [client, setClient] = useState("");
-  const [userFeed, setUserFeed] = useState("");
-  const [timelineFeed, setTimelineFeed] = useState("");
-  const [view, setView] = useState("login");
 
   return (
     <div className="App">
-      {view === "login" ? (
-        <Login
-          setView={setView}
-          setClient={setClient}
-          setUserFeed={setUserFeed}
-          setTimelineFeed={setTimelineFeed}
-        />
+      {!activeFeed ? (
+        <Login setActiveFeed={setActiveFeed} setClient={setClient} />
       ) : (
         <div>
           <Banner />
-          <FeedSelector
-            setUserFeed={setUserFeed}
-            setActiveFeed={setActiveFeed}
-          />
-          <PostToFeed client={client} userFeed={userFeed} />
+          <FeedSelector client={client} setActiveFeed={setActiveFeed} />
+          <PostToFeed client={client} activeFeed={activeFeed} />
           <ActivityList
             client={client}
-            userFeed={userFeed}
-            timelineFeed={timelineFeed}
+            setActiveFeed={setActiveFeed}
             activeFeed={activeFeed}
           />
         </div>
