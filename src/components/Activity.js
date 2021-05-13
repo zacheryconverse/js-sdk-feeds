@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { act } from "react-dom/cjs/react-dom-test-utils.production.min";
-import { formatTime } from "../utils/formatTime";
+import formatTime from "../utils/formatTime";
 import isLiked from "../utils/isLiked";
 import countComments from "../utils/countComments";
 
 export default function Activity({ activity, client }) {
   const [comment, setComment] = useState("");
   const [reactions, setReactions] = useState([]);
+
+  const user = client.feed("user", client.userId);
+
+  const deleteActivity = () => {
+    user.removeActivity(activity.id);
+  };
 
   useEffect(() => {
     const getReactions = async () => {
@@ -19,18 +24,20 @@ export default function Activity({ activity, client }) {
   }, []);
 
   const submitComment = () => {
-    client.reactions.add("comment", activity.id, { text: comment });
+    if (comment) client.reactions.add("comment", activity.id, { text: comment });
+    else console.log('No Text in Comment Box');
   };
 
   const addLike = async () => {
-    await client.reactions.add("like", activity.id);
-    console.log(client.reactions);
+    const liked = reactions.filter(r => r.kind === "like");
+    let like;
+    if (liked.length) like = await client.reactions.delete(liked[0].id);
+    else like = await client.reactions.add("like", activity.id);
+    // how to get reaction id to check if a reaction exists already and delete
+    //   fetch your own reactions to render green if you liked it
+    console.log('user', user, 'like', like, 'liked', liked);
   }
 
-  const user = client.feed("user", client.userId);
-  const deleteActivity = () => {
-    user.removeActivity(activity.id);
-  };
   const generateReactions = () => {
     return reactions.map(
       (reaction) =>
@@ -78,7 +85,7 @@ const activityContainer = {
   color: "black",
   width: "50%",
   margin: "10px",
-  padding: "25px 0",
+  padding: "25px 20px",
 };
 
 const activitySmall = {
