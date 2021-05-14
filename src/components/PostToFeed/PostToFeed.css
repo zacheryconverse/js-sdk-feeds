@@ -1,4 +1,16 @@
 .post-to-feed {
-    background-color: rgb(0, 151, 221);
-    padding: 1rem;
+  background-color: rgb(0, 151, 221);
+  display: flex;
+  justify-content: center;
+}
+
+.activity-input {
+  display: flex;
+  padding-bottom: 5em;
+  padding-right: 20em;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-left: 5px;
+  overflow-x: hidden;
+  border: 0px solid blanchedalmond;
 }
