@@ -1,52 +1,64 @@
-import React, { useEffect, useState } from "react";
+import moment from "moment";
 import formatTime from "../utils/formatTime";
 import LikeButton from "./LikeButton";
+import LoveButton from "./LoveButton";
 import Comments from "./Comments";
 import DeleteActivity from "./DeleteActivity";
-import moment from 'moment';
+import EditActivity from "./EditActivity";
+import Follow from "./Follow";
 
-export default function Activity({ activeFeed, activity, client }) {
-  const [reactions, setReactions] = useState([]);
-
-  useEffect(() => {
-    const getReactions = async () => {
-      return await client.reactions.filter({
-        activity_id: activity.id,
-      });
-    };
-    getReactions().then((r) => setReactions(r.results));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+export default function Activity({ activeFeed, activity }) {
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
         <p style={activitySmall}>
-          {activity.actor.id} - {formatTime(new Date(activity.time))} on {moment(activity.time).format('MMMM Do')}
+          {activity.actor.id} - {formatTime(new Date(activity.time))} on{" "}
+          {moment(activity.time).format("MMMM Do")}
         </p>
         <li style={activityText}>{activity.text}</li>
-        <LikeButton activity={activity} client={client} reactions={reactions} />
-        <Comments activity={activity} client={client} reactions={reactions} />
-        <DeleteActivity activity={activity} client={client} activeFeed={activeFeed} />
+        <EditActivity
+          activeFeed={activeFeed}
+          activity={activity}
+        />
+        <div className="reactions">
+          <LikeButton
+            activeFeed={activeFeed}
+            activity={activity}
+          />
+          <LoveButton
+            activeFeed={activeFeed}
+            activity={activity}
+          />
+        </div>
+        <Follow activeFeed={activeFeed} />
+        <Comments activeFeed={activeFeed} activity={activity} />
+        <DeleteActivity activity={activity} activeFeed={activeFeed} />
       </div>
     </div>
   );
 }
 
+
+
+
+
+
+
+
 const activityContainer = {
   display: "flex",
-  background:  "linear-gradient(to right, rgba(0, 151, 221, 100), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(0, 151, 221, 50))",
+  background:
+    "linear-gradient(to right, rgba(0, 151, 221, 100), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(255, 255, 255, 50), rgba(0, 151, 221, 50))",
   borderBottom: "1px solid grey",
-  // borderRadius: "10px",
   color: "black",
-  width: "50vw",
+  width: "75vw",
   margin: "10px",
-  padding: "25px 20px",
+  padding: "25px 50px",
+  justifyContent: "center",
 };
 
 const activitySmall = {
-  fontSize: "0.8em",
-
+  fontSize: "0.5em",
 };
 
 const activityText = {
@@ -57,4 +69,5 @@ const activityText = {
 const activityLeft = {
   display: "flex",
   flexDirection: "column",
+  width: "50%",
 };

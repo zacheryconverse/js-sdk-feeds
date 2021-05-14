@@ -6,14 +6,15 @@ export default function PostToFeed({ activeFeed }) {
   const addActivity = async (e) => {
     e.preventDefault();
 
-    await activeFeed.addActivity({
-      // actor: `SU:${client.userId}`,
+    const response = await activeFeed.addActivity({
+      // actor: `SU:${activeFeed.userId}`,
       verb: "add",
       object: "picture:9",
       foreign_id: "picture:9",
       time: new Date(),
       text: message,
     });
+    console.log(response);
     setMessage("");
   };
 

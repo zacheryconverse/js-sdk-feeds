@@ -18,12 +18,8 @@ function App() {
         <div>
           <Banner />
           <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-          <PostToFeed client={client} activeFeed={activeFeed} />
-          <ActivityList
-            client={client}
-            setActiveFeed={setActiveFeed}
-            activeFeed={activeFeed}
-          />
+          <PostToFeed activeFeed={activeFeed} />
+          <ActivityList activeFeed={activeFeed} />
         </div>
       )}
     </div>
