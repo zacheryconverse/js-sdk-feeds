@@ -20,13 +20,13 @@ export default function PostToFeed({ activeFeed }) {
   return (
     <div className="post-to-feed">
       <form onSubmit={addActivity}>
-        <label>Share a post </label>
         <input
+        className="activity-input"
           autoFocus
           type="text"
           name="activity"
           value={message}
-          placeholder="Share something..."
+          placeholder="What's on your mind?"
           onChange={(e) => setMessage(e.target.value)}
         ></input>
       </form>
