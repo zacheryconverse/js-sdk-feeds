@@ -3,6 +3,7 @@ import formatTime from "../utils/formatTime";
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
 import DeleteActivity from "./DeleteActivity";
+import Follow from "./Follow";
 
 export default function Activity({ activeFeed, activity, client }) {
   const [reactions, setReactions] = useState([]);
@@ -25,6 +26,7 @@ export default function Activity({ activeFeed, activity, client }) {
         </p>
         <li style={activityText}>{activity.text}</li>
         <LikeButton activity={activity} client={client} reactions={reactions} />
+        <Follow activeFeed={activeFeed} />
         <Comments activity={activity} client={client} reactions={reactions} />
         <DeleteActivity activity={activity} client={client} activeFeed={activeFeed} />
       </div>
