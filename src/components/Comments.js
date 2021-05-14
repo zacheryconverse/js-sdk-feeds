@@ -1,27 +1,34 @@
 import { useState } from "react";
-import countComments from "../utils/countComments";
 import CommentList from "./CommentList";
 
-export default function Comments({ activity, client, reactions }) {
+export default function Comments({ activeFeed, activity }) {
   const [comment, setComment] = useState("");
 
-  const submitComment = () => {
-    if (comment)
-      client.reactions.add("comment", activity.id, { text: comment });
-    else console.log("No Text in Comment Box");
+  const submitComment = (e) => {
+    e.preventDefault();
+
+    if (comment) {
+      activeFeed.client.reactions.add("comment", activity.id, { text: comment });
+      setComment("");
+    } else console.log("No Text in Comment Box");
   };
 
   return (
     <>
-      <input
-        type="text"
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="Add A Comment"
-        style={activitySmall}
-      ></input>
-      <button onClick={() => submitComment()}>Add Comment</button>
-      <p style={activitySmall}>Comments: ({countComments(reactions)})</p>
-      <CommentList activity={activity} reactions={reactions} />
+      <form onSubmit={submitComment}>
+        <input
+          value={comment}
+          type="text"
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Add A Comment"
+          style={activitySmall}
+        ></input>
+        <button>Add Comment</button>
+      </form>
+      <p style={activitySmall}>
+        Comments: ({activity.reaction_counts?.comment || 0})
+      </p>
+      <CommentList activeFeed={activeFeed} activity={activity} />
     </>
   );
 }

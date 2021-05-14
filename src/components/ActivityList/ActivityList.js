@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ client, activeFeed }) {
+export default function ActivityList({ activeFeed }) {
   const [activities, setActivities] = useState(null);
   const [offset, setOffset] = useState(10);
 
   useEffect(() => {
     const getActivities = async () => {
-      const results = await activeFeed.get({ limit: 10 });
+      // const results = await activeFeed.get({ limit: 10, ranking: 'popularity' });
+      const results = await activeFeed.get({
+        limit: 10,
+        enrich: true,
+        reactions: { own: true, counts: true, recent: true },
+      });
       setActivities(results.results);
     };
 
@@ -36,7 +41,6 @@ export default function ActivityList({ client, activeFeed }) {
               key={activity.id}
               activeFeed={activeFeed}
               activity={activity}
-              client={client}
             />
           ))}
       </ul>

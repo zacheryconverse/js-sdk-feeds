@@ -5,7 +5,7 @@ const stream = require("getstream");
 const key = process.env["REACT_APP_KEY"];
 const appID = process.env["REACT_APP_ID"];
 
-export default function Login({ setActiveFeed, setClient, setUserFeed, setTimelineFeed }) {
+export default function Login({ setActiveFeed, setClient }) {
   const [userID, setUserID] = useState("");
 
   const handleUserIDSubmit = async (e) => {
