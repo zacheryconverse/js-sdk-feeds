@@ -28,7 +28,11 @@ export default function Activity({
           getActivities={getActivities}
         />
         <div>
-          <LikeButton activeFeed={activeFeed} activity={activity} />
+          <LikeButton
+            activeFeed={activeFeed}
+            activity={activity}
+            reactionFeed={reactionFeed}
+          />
           <LoveButton activeFeed={activeFeed} activity={activity} />
         </div>
         <Follow activeFeed={activeFeed} />
