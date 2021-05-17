@@ -25,7 +25,7 @@ app.post("/token", async (req, res) => {
   }
 });
 
-app.post("/update", async (req, res) => {
+app.patch("/update", async (req, res) => {
   const { activity, updateText } = req.body;
   const update = await serverClient.activityPartialUpdate({
     id: activity.id,
