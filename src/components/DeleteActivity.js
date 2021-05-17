@@ -1,6 +1,11 @@
-export default function DeleteActivity({ activeFeed, activity }) {
-  const deleteActivity = () => {
-    activeFeed.removeActivity(activity.id);
+export default function DeleteActivity({
+  activeFeed,
+  activity,
+  getActivities,
+}) {
+  const deleteActivity = async () => {
+    await activeFeed.removeActivity(activity.id);
+    getActivities();
   };
 
   return activity.actor.id === activeFeed.userId ? (
