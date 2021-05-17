@@ -5,7 +5,7 @@ import like from "../icons/like.svg";
 export default function LikeButton({ activeFeed, activity }) {
   //   fetch your own reactions to render green if you liked it
   const [name, setName] = useState(
-    activity.own_reactions.like ? "liked" : "not-liked"
+    activity.own_reactions?.like ? "liked" : "not-liked"
   );
   // Bug: does not handle multiple clicks - will add multiple likes or error when attempting to delete multiple likes
   const handleLikeClick = async () => {
