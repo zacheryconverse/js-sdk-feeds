@@ -35,6 +35,7 @@ function App() {
             activities={activities}
             getActivities={getActivities}
             setActiveFeed={setActiveFeed}
+            client={client}
           />
         </div>
       )}

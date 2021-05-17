@@ -6,6 +6,7 @@ export default function ActivityList({
   activities,
   getActivities,
   setActivities,
+  client
 }) {
   const [offset, setOffset] = useState(10);
 
@@ -35,6 +36,7 @@ export default function ActivityList({
               key={activity.id}
               activeFeed={activeFeed}
               activity={activity}
+              client={client}
               getActivities={getActivities}
             />
           ))}

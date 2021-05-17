@@ -1,8 +1,9 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
 
-export default function Comments({ activeFeed, activity }) {
+export default function Comments({ activeFeed, activity, client }) {
   const [comment, setComment] = useState("");
+  const reactionFeed = client.feed('reaction', client.userId)
 
   const submitComment = (e) => {
     e.preventDefault();
@@ -11,13 +12,14 @@ export default function Comments({ activeFeed, activity }) {
       activeFeed.client.reactions.add("comment", activity.id, {
         text: comment,
       });
+      reactionFeed.addActivity({object: 'comment:1', text:comment, verb: 'comment'})
       setComment("");
     } else console.log("No Text in Comment Box");
   };
 
   return (
     <>
-      <CommentList activeFeed={activeFeed} activity={activity} />
+      <CommentList activeFeed={activeFeed} activity={activity} client={client} />
       <form onSubmit={submitComment}>
         <input
           value={comment}
