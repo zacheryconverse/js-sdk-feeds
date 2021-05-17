@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
 
-export default function Comments({ activeFeed, activity }) {
+export default function Comments({ activeFeed, activity, client }) {
   const [comment, setComment] = useState("");
 
   const submitComment = (e) => {

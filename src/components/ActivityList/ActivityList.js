@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ activeFeed }) {
+export default function ActivityList({ activeFeed, client }) {
   const [activities, setActivities] = useState(null);
   const [offset, setOffset] = useState(10);
 
@@ -41,6 +41,7 @@ export default function ActivityList({ activeFeed }) {
               key={activity.id}
               activeFeed={activeFeed}
               activity={activity}
+              client={client}
             />
           ))}
       </ul>

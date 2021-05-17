@@ -7,7 +7,7 @@ import DeleteActivity from "./DeleteActivity";
 import EditActivity from "./EditActivity";
 import Follow from "./Follow";
 
-export default function Activity({ activeFeed, activity }) {
+export default function Activity({ activeFeed, activity, client }) {
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
@@ -31,7 +31,7 @@ export default function Activity({ activeFeed, activity }) {
           />
         </div>
         <Follow activeFeed={activeFeed} />
-        <Comments activeFeed={activeFeed} activity={activity} />
+        <Comments activeFeed={activeFeed} activity={activity} client={client}/>
         <DeleteActivity activity={activity} activeFeed={activeFeed} />
       </div>
     </div>
