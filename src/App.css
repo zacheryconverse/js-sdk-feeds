@@ -22,36 +22,31 @@ button {
   overflow: auto;
 }
 
-.reactions {
-  display: flex;
-  justify-content: center;
-}
-
 .not-liked {
-  font-size: 2rem;
-  height: 3rem;
-  width: 3rem;
+  font-size: 1rem;
+  height: 2rem;
+  width: 2rem;
   cursor: pointer;
   border: none;
   background-color: transparent;
-  border-radius: 3rem;
+  border-radius: 2rem;
   margin: 0.5rem;
 }
 
 .liked {
-  font-size: 2rem;
+  font-size: 1rem;
   background-color: green;
   border: none;
-  border-radius: 3rem;
+  border-radius: 2rem;
   fill: green;
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   margin: 0.5rem;
 }
 
 .like-icon {
-  height: 2rem;
-  width: 2rem;
+  height: 1rem;
+  width: 1rem;
   cursor: pointer;
 }
 

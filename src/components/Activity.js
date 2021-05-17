@@ -20,7 +20,7 @@ export default function Activity({ activeFeed, activity }) {
           activeFeed={activeFeed}
           activity={activity}
         />
-        <div className="reactions">
+        <div>
           <LikeButton
             activeFeed={activeFeed}
             activity={activity}

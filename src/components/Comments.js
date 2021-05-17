@@ -25,9 +25,9 @@ export default function Comments({ activeFeed, activity }) {
         ></input>
         <button>Add Comment</button>
       </form>
-      <p style={activitySmall}>
+      {/* <p style={activitySmall}>
         Comments: ({activity.reaction_counts?.comment || 0})
-      </p>
+      </p> */}
       <CommentList activeFeed={activeFeed} activity={activity} />
     </>
   );

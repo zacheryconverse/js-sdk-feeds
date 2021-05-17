@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function LoveButton({ activeFeed, activity }) {
   //   fetch your own reactions to render green if you loved it
   const [name, setName] = useState(
-    activity.own_reactions.love ? "liked" : "not-liked"
+    activity.own_reactions?.love ? "liked" : "not-liked"
   );
   // Bug: does not handle multiple clicks - will add multiple loves or error when attempting to delete multiple loves
   const handleLikeClick = async () => {
