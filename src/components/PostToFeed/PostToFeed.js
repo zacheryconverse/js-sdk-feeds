@@ -1,12 +1,12 @@
-import { useState  } from "react";
-import './PostToFeed.css'
-export default function PostToFeed({ activeFeed }) {
+import { useState } from "react";
+import "./PostToFeed.css";
+export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
 
   const addActivity = async (e) => {
     e.preventDefault();
 
-    const response = await activeFeed.addActivity({
+    await activeFeed.addActivity({
       // actor: `SU:${activeFeed.userId}`,
       verb: "add",
       object: "picture:9",
@@ -14,7 +14,7 @@ export default function PostToFeed({ activeFeed }) {
       time: new Date(),
       text: message,
     });
-    console.log(response);
+    getActivities();
     setMessage("");
   };
 
@@ -22,7 +22,7 @@ export default function PostToFeed({ activeFeed }) {
     <div className="post-to-feed">
       <form onSubmit={addActivity}>
         <input
-        className="activity-input"
+          className="activity-input"
           autoFocus
           type="text"
           name="activity"

@@ -9,7 +9,9 @@ export default function Comments({ activeFeed, activity, client }) {
     e.preventDefault();
 
     if (comment) {
-      activeFeed.client.reactions.add("comment", activity.id, { text: comment });
+      activeFeed.client.reactions.add("comment", activity.id, {
+        text: comment,
+      });
       reactionFeed.addActivity({object: 'comment:1', text:comment, verb: 'comment'})
       setComment("");
     } else console.log("No Text in Comment Box");
@@ -17,6 +19,7 @@ export default function Comments({ activeFeed, activity, client }) {
 
   return (
     <>
+      <CommentList activeFeed={activeFeed} activity={activity} client={client} />
       <form onSubmit={submitComment}>
         <input
           value={comment}
@@ -27,7 +30,6 @@ export default function Comments({ activeFeed, activity, client }) {
         ></input>
         <button>Add Comment</button>
       </form>
-      <CommentList activeFeed={activeFeed} activity={activity} client={client} />
     </>
   );
 }

@@ -1,20 +1,21 @@
 import { useState } from "react";
+import axios from "axios";
 
-export default function EditActivity({ activeFeed, activity, client }) {
+export default function EditActivity({ activeFeed, activity, getActivities }) {
   const [updateText, setUpdateText] = useState("");
 
   const editActivity = async (e) => {
     e.preventDefault();
-
+    console.log("edit");
     if (updateText) {
       try {
-        const update = await activeFeed.client.activityPartialUpdate({
-          id: activity.id,
-          set: { text: updateText },
+        await axios.post("http://localhost:8000/update", {
+          activity,
+          updateText,
         });
 
         setUpdateText("");
-        console.log(update);
+        getActivities();
       } catch (err) {
         console.log("Error updating activity", err);
       }
@@ -29,8 +30,8 @@ export default function EditActivity({ activeFeed, activity, client }) {
           value={updateText}
           placeholder="edit"
         />
+        <button style={{ width: "3rem" }}>Edit</button>
       </form>
-      <button style={{ width: "3rem" }}>Edit</button>
     </div>
   ) : null;
 }

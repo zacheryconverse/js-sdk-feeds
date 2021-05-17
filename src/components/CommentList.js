@@ -34,7 +34,7 @@ reactionFeed.subscribe(async ()  => {
 
 
   return (
-    <div>
+    <>
       <button onClick={handleCommentsClick}>
         Comments: ({activity.reaction_counts?.comment || 0})
       </button>
@@ -55,6 +55,6 @@ reactionFeed.subscribe(async ()  => {
               )
           )
         : null}
-    </div>
+    </>
   );
 }
