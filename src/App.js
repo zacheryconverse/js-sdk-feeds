@@ -10,7 +10,7 @@ function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
-
+console.log(activeFeed)
   const getActivities = async () => {
     const results = await activeFeed.get({
       // ranking: 'popularity'
@@ -29,7 +29,7 @@ function App() {
         <div>
           <Banner />
           <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-          <PostToFeed activeFeed={activeFeed} getActivities={getActivities} />
+          <PostToFeed activeFeed={activeFeed} getActivities={getActivities} client={client}/>
           <ActivityList
             activeFeed={activeFeed}
             activities={activities}
