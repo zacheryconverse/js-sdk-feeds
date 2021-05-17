@@ -1,9 +1,10 @@
 import { useState } from "react";
 import formatTime from "../utils/formatTime";
 
-export default function CommentList({ activeFeed, activity }) {
+export default function CommentList({ activeFeed, activity, client }) {
   const [reactions, setReactions] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const reactionFeed = client.feed('reaction', client.userId)
 
   const handleCommentsClick = async () => {
     try {
@@ -23,6 +24,14 @@ export default function CommentList({ activeFeed, activity }) {
   const handleDeleteClick = async () => {
     console.log("clicked");
   };
+
+reactionFeed.subscribe(async ()  => {
+  let response = await activeFeed.client.reactions.filter({
+    activity_id: activity.id,
+  });
+  setReactions(response.results);
+})
+
 
   return (
     <div>
