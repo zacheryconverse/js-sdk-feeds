@@ -10,6 +10,7 @@ function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
+  const [reactionFeed, setReactionFeed] = useState(null);
 
   const getActivities = async () => {
     const results = await activeFeed.get({
@@ -24,9 +25,13 @@ function App() {
   return (
     <div className="App">
       {!activeFeed ? (
-        <Login setActiveFeed={setActiveFeed} setClient={setClient} />
+        <Login
+          setActiveFeed={setActiveFeed}
+          setClient={setClient}
+          setReactionFeed={setReactionFeed}
+        />
       ) : (
-        <div>
+        <>
           <Banner />
           <FeedSelector client={client} setActiveFeed={setActiveFeed} />
           <PostToFeed activeFeed={activeFeed} getActivities={getActivities} />
@@ -35,9 +40,9 @@ function App() {
             activities={activities}
             getActivities={getActivities}
             setActiveFeed={setActiveFeed}
-            client={client}
+            reactionFeed={reactionFeed}
           />
-        </div>
+        </>
       )}
     </div>
   );

@@ -5,7 +5,8 @@ export default function ActivityList({
   activeFeed,
   activities,
   getActivities,
-  setActivities
+  setActivities,
+  reactionFeed
 }) {
   const [offset, setOffset] = useState(10);
 
@@ -36,6 +37,7 @@ export default function ActivityList({
               activeFeed={activeFeed}
               activity={activity}
               getActivities={getActivities}
+              reactionFeed={reactionFeed}
             />
           ))}
       </ul>

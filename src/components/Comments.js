@@ -1,13 +1,13 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
 
-export default function Comments({ activeFeed, activity }) {
+export default function Comments({ activeFeed, activity, reactionFeed }) {
   const [comment, setComment] = useState("");
 
-  const reactionFeed = activeFeed.client.feed(
-    "reaction",
-    activeFeed.client.userId
-  );
+  // const reactionFeed = activeFeed.client.feed(
+  //   "reaction",
+  //   activeFeed.client.userId
+  // );
 
   const submitComment = async (e) => {
     e.preventDefault();
