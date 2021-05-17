@@ -8,16 +8,15 @@ export default function CommentList({ activeFeed, activity, reactionFeed }) {
 
   const handleCommentsClick = async () => {
     try {
-      let response;
       if (!reactions.length) {
-        response = await activeFeed.client.reactions.filter({
+        const response = await activeFeed.client.reactions.filter({
           activity_id: activity.id,
         });
 
         setReactions(response.results);
 
         reactionFeed.subscribe(async () => {
-          let response = await activeFeed.client.reactions.filter({
+          const response = await activeFeed.client.reactions.filter({
             activity_id: activity.id,
           });
 
