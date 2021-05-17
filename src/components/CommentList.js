@@ -25,7 +25,7 @@ export default function CommentList({ activeFeed, activity }) {
   };
 
   return (
-    <div>
+    <>
       <button onClick={handleCommentsClick}>
         Comments: ({activity.reaction_counts?.comment || 0})
       </button>
@@ -46,6 +46,6 @@ export default function CommentList({ activeFeed, activity }) {
               )
           )
         : null}
-    </div>
+    </>
   );
 }

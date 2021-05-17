@@ -4,10 +4,10 @@ import LikeButton from "./LikeButton";
 import LoveButton from "./LoveButton";
 import Comments from "./Comments";
 import DeleteActivity from "./DeleteActivity";
-import EditActivity from "./EditActivity";
+import EditActivity from "./serverSide/EditActivity";
 import Follow from "./Follow";
 
-export default function Activity({ activeFeed, activity }) {
+export default function Activity({ activeFeed, activity, getActivities }) {
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
@@ -19,16 +19,11 @@ export default function Activity({ activeFeed, activity }) {
         <EditActivity
           activeFeed={activeFeed}
           activity={activity}
+          getActivities={getActivities}
         />
         <div>
-          <LikeButton
-            activeFeed={activeFeed}
-            activity={activity}
-          />
-          <LoveButton
-            activeFeed={activeFeed}
-            activity={activity}
-          />
+          <LikeButton activeFeed={activeFeed} activity={activity} />
+          <LoveButton activeFeed={activeFeed} activity={activity} />
         </div>
         <Follow activeFeed={activeFeed} />
         <Comments activeFeed={activeFeed} activity={activity} />
@@ -37,13 +32,6 @@ export default function Activity({ activeFeed, activity }) {
     </div>
   );
 }
-
-
-
-
-
-
-
 
 const activityContainer = {
   display: "flex",
