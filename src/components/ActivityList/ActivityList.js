@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-export default function ActivityList({ activeFeed }) {
-  const [activities, setActivities] = useState(null);
+export default function ActivityList({
+  activeFeed,
+  activities,
+  getActivities,
+  setActivities,
+}) {
   const [offset, setOffset] = useState(10);
 
   useEffect(() => {
-    const getActivities = async () => {
-      // const results = await activeFeed.get({ limit: 10, ranking: 'popularity' });
-      const results = await activeFeed.get({
-        limit: 10,
-        enrich: true,
-        reactions: { own: true, counts: true, recent: true },
-      });
-      setActivities(results.results);
-    };
-
     getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFeed]);
@@ -41,6 +35,7 @@ export default function ActivityList({ activeFeed }) {
               key={activity.id}
               activeFeed={activeFeed}
               activity={activity}
+              getActivities={getActivities}
             />
           ))}
       </ul>

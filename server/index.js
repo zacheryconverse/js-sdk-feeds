@@ -25,4 +25,17 @@ app.post("/token", async (req, res) => {
   }
 });
 
+app.post("/update", async (req, res) => {
+  const { activity, updateText } = req.body;
+  const update = await serverClient.activityPartialUpdate({
+    id: activity.id,
+    set: { text: updateText },
+  });
+  try {
+    res.status(200).send(update);
+  } catch (err) {
+    res.status(500).send("Server Error: ", err);
+  }
+});
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
