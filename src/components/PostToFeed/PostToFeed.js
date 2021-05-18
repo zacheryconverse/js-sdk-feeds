@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./PostToFeed.css";
-export default function PostToFeed({ activeFeed, getActivities, client }) {
+export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-  const globalFeed = client.feed('global', 'all')
+  const globalFeed = activeFeed.client.feed('global', 'all')
   const addActivity = async (e) => {
     e.preventDefault();
 

@@ -34,7 +34,7 @@ function App() {
         <>
           <Banner />
           <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-          <PostToFeed activeFeed={activeFeed} getActivities={getActivities} client={client}/>
+          <PostToFeed activeFeed={activeFeed} getActivities={getActivities} />
           <ActivityList
             activeFeed={activeFeed}
             activities={activities}
