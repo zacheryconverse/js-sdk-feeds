@@ -12,6 +12,8 @@ export default function Activity({
   activity,
   getActivities,
   reactionFeed,
+  subscribeData,
+
 }) {
   return (
     <div style={activityContainer}>
@@ -40,6 +42,7 @@ export default function Activity({
           activeFeed={activeFeed}
           activity={activity}
           reactionFeed={reactionFeed}
+          subscribeData={subscribeData}
         />
         <DeleteActivity
           activity={activity}

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
 
-export default function Comments({ activeFeed, activity, reactionFeed }) {
+export default function Comments({
+  activeFeed,
+  activity,
+  reactionFeed,
+  subscribeData,
+}) {
   const [comment, setComment] = useState("");
   const [commentCount, setCommentCount] = useState(
     activity.reaction_counts?.comment || 0
@@ -37,6 +42,7 @@ export default function Comments({ activeFeed, activity, reactionFeed }) {
         activity={activity}
         commentCount={commentCount}
         reactionFeed={reactionFeed}
+        subscribeData={subscribeData}
       />
       <form onSubmit={submitComment}>
         <input

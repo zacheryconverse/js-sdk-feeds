@@ -5,7 +5,12 @@ const stream = require("getstream");
 const key = process.env["REACT_APP_KEY"];
 const appID = process.env["REACT_APP_ID"];
 
-export default function Login({ setActiveFeed, setClient, setReactionFeed }) {
+export default function Login({
+  setActiveFeed,
+  setClient,
+  setReactionFeed,
+  setSubscribeData,
+}) {
   const [userID, setUserID] = useState("");
 
   const handleUserIDSubmit = async (e) => {
@@ -15,7 +20,15 @@ export default function Login({ setActiveFeed, setClient, setReactionFeed }) {
       const client = stream.connect(key, result.data, appID);
       setClient(client);
       setActiveFeed(client.feed("user", client.userId));
-      setReactionFeed(client.feed("reaction", client.userId));
+      const reactionFeed = await client.feed("reaction", client.userId);
+      setReactionFeed(reactionFeed);
+
+      await reactionFeed.subscribe(async (data) => {
+        // do not set reactions here because that would be for all activities
+        setSubscribeData([data]);
+        console.log(data);
+      });
+      console.log("listening to reactionFeed");
     } catch (err) {
       console.error("ERROR", err);
     }
