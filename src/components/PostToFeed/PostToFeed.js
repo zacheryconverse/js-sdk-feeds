@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./PostToFeed.css";
+import {
+  GlobalFeedContext,
+  UserFeedContext,
+} from "../../FeedsContext";
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-  const globalFeed = activeFeed.client.feed('global', 'all')
+  const globalFeed = useContext(GlobalFeedContext);
+  const userFeed = useContext(UserFeedContext);
+
   const addActivity = async (e) => {
     e.preventDefault();
 
-    await activeFeed.addActivity({
-      // actor: `SU:${activeFeed.userId}`,
+    await userFeed[0].addActivity({
       verb: "add",
       object: "picture:9",
       foreign_id: "picture:9",
@@ -15,7 +20,7 @@ export default function PostToFeed({ activeFeed, getActivities }) {
       text: message,
     });
 
-    await globalFeed.addActivity({
+    await globalFeed[0].addActivity({
       verb: "add",
       object: "picture:9",
       foreign_id: "picture:9",

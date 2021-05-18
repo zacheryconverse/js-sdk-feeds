@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ReactionFeedContext, UserFeedContext, GlobalFeedContext } from '../../FeedsContext';
+import { ReactionFeedContext, UserFeedContext, GlobalFeedContext, TimelineFeedContext } from '../../FeedsContext';
 
 import axios from "axios";
 const stream = require("getstream");
@@ -12,6 +12,7 @@ export default function Login({ setActiveFeed, setClient }) {
   const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
   const [reactionFeed, setReactionFeed] = useContext(ReactionFeedContext);
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
+  const [timeLine, setTimelineFeed] = useContext(TimelineFeedContext);
 
   const handleUserIDSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +22,10 @@ export default function Login({ setActiveFeed, setClient }) {
       setClient(client);
       setActiveFeed(client.feed("timeline", client.userId));
       setReactionFeed(client.feed("reaction", client.userId));
-      setGlobalFeed(client.feed("global", client.userId));
+      setGlobalFeed(client.feed("global", "all"));
       setUserFeed(client.feed("user", client.userId))
+      setTimelineFeed(client.feed("timeline", client.userId))
+
     } catch (err) {
       console.error("ERROR", err);
     }

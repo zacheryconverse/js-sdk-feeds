@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CommentList from "./CommentList";
-
-export default function Comments({ activeFeed, activity, reactionFeed }) {
+import {
+  GlobalFeedContext,
+  UserFeedContext,
+  ReactionFeedContext
+} from "../FeedsContext";
+export default function Comments({ activeFeed, activity }) {
   const [comment, setComment] = useState("");
-
-  // const reactionFeed = activeFeed.client.feed(
-  //   "reaction",
-  //   activeFeed.client.userId
-  // );
-
+  const globalFeed = useContext(GlobalFeedContext);
+  const userFeed = useContext(UserFeedContext);
+  const reactionFeed = useContext(ReactionFeedContext);
 
   const submitComment = async (e) => {
     e.preventDefault();
     if (comment) {
-      activeFeed.client.reactions.add("comment", activity.id, {
+      userFeed[0].client.reactions.add("comment", activity.id, {
         text: comment,
       });
-      reactionFeed.addActivity({
+      globalFeed[0].client.reactions.add("comment", activity.id, {
+        text: comment,
+      })
+      reactionFeed[0].addActivity({
         object: "comment:1",
         text: comment,
         verb: "comment",

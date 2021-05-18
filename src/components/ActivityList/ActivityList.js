@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-import { GlobalFeedContext } from '../../FeedsContext'
+import { GlobalFeedContext, UserFeedContext, ReactionFeedContext } from '../../FeedsContext'
 
 export default function ActivityList({
   activeFeed,

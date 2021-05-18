@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./FeedSelector.css";
 import global from "../../icons/global.svg";
 import timeline from "../../icons/timeline.svg";
 import user from "../../icons/user.svg";
+import {
+  GlobalFeedContext,
+  UserFeedContext,
+  TimelineFeedContext,
+} from "../../FeedsContext";
 
 export default function FeedSelector({ client, setActiveFeed }) {
+  const globalFeed = useContext(GlobalFeedContext);
+  const userFeed = useContext(UserFeedContext);
+  const timelineFeed = useContext(TimelineFeedContext);
+
+  console.log(globalFeed);
   const handleFeedClick = (feedType) => {
     if (feedType === "global") {
-      setActiveFeed(client.feed(feedType, "all"));
-    } else {
-      setActiveFeed(client.feed(feedType, client.userId));
+      setActiveFeed(globalFeed[0]);
+    }
+    if (feedType === "user") {
+      setActiveFeed(userFeed[0]);
+    }
+    if (feedType === "timeline") {
+      setActiveFeed(timelineFeed[0]);
     }
   };
 

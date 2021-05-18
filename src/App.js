@@ -9,6 +9,7 @@ import {
   GlobalFeedProvider,
   UserFeedProvider,
   ReactionFeedProvider,
+  TimelineFeedProvider,
 } from "./FeedsContext";
 function App() {
   const [activeFeed, setActiveFeed] = useState("");
@@ -29,26 +30,28 @@ function App() {
     <GlobalFeedProvider>
       <UserFeedProvider>
         <ReactionFeedProvider>
-          <div className="App">
-            {!activeFeed ? (
-              <Login setActiveFeed={setActiveFeed} setClient={setClient} />
-            ) : (
-              <>
-                <Banner />
-                <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-                <PostToFeed
-                  activeFeed={activeFeed}
-                  getActivities={getActivities}
-                />
-                <ActivityList
-                  activeFeed={activeFeed}
-                  activities={activities}
-                  getActivities={getActivities}
-                  setActiveFeed={setActiveFeed}
-                />
-              </>
-            )}
-          </div>
+          <TimelineFeedProvider>
+            <div className="App">
+              {!activeFeed ? (
+                <Login setActiveFeed={setActiveFeed} setClient={setClient} />
+              ) : (
+                <>
+                  <Banner />
+                  <FeedSelector client={client} setActiveFeed={setActiveFeed} />
+                  <PostToFeed
+                    activeFeed={activeFeed}
+                    getActivities={getActivities}
+                  />
+                  <ActivityList
+                    activeFeed={activeFeed}
+                    activities={activities}
+                    getActivities={getActivities}
+                    setActiveFeed={setActiveFeed}
+                  />
+                </>
+              )}
+            </div>
+          </TimelineFeedProvider>
         </ReactionFeedProvider>
       </UserFeedProvider>
     </GlobalFeedProvider>

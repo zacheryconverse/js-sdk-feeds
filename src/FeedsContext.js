@@ -32,8 +32,20 @@ export const UserFeedContext = createContext();
 export const UserFeedProvider = (props) => {
 const [userFeed, setUserFeed] = useState(null);
 return (
-  <ReactionFeedContext.Provider value={[userFeed, setUserFeed]}>
+  <UserFeedContext.Provider value={[userFeed, setUserFeed]}>
     {props.children}
-  </ReactionFeedContext.Provider>
+  </UserFeedContext.Provider>
 );
 }
+
+export const TimelineFeedContext = createContext();
+
+export const TimelineFeedProvider = (props) => {
+const [timelineFeed, setTimelineFeed] = useState(null);
+return (
+  <TimelineFeedContext.Provider value={[timelineFeed, setTimelineFeed]}>
+    {props.children}
+  </TimelineFeedContext.Provider>
+);
+}
+
