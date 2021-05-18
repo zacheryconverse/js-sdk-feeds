@@ -20,13 +20,13 @@ export default function Login({
       const client = stream.connect(key, result.data, appID);
       setClient(client);
       setActiveFeed(client.feed("user", client.userId));
+      
       const reactionFeed = await client.feed("reaction", client.userId);
       setReactionFeed(reactionFeed);
 
       await reactionFeed.subscribe(async (data) => {
-        // do not set reactions here because that would be for all activities
         setSubscribeData([data]);
-        console.log(data);
+        console.log('Subscribe Data: ', data);
       });
       console.log("listening to reactionFeed");
     } catch (err) {

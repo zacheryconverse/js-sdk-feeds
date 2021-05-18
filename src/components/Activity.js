@@ -13,7 +13,6 @@ export default function Activity({
   getActivities,
   reactionFeed,
   subscribeData,
-
 }) {
   return (
     <div style={activityContainer}>
@@ -30,11 +29,7 @@ export default function Activity({
           getActivities={getActivities}
         />
         <div>
-          <LikeButton
-            activeFeed={activeFeed}
-            activity={activity}
-            reactionFeed={reactionFeed}
-          />
+          <LikeButton activeFeed={activeFeed} activity={activity} />
           <LoveButton activeFeed={activeFeed} activity={activity} />
         </div>
         <Follow activeFeed={activeFeed} />
