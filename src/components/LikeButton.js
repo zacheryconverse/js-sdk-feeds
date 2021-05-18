@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import isLiked from "../utils/isLiked";
 import like from "../icons/like.svg";
 
 export default function LikeButton({ activeFeed, activity }) {

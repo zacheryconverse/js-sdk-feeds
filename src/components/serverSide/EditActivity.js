@@ -6,10 +6,9 @@ export default function EditActivity({ activeFeed, activity, getActivities }) {
 
   const editActivity = async (e) => {
     e.preventDefault();
-    console.log("edit");
     if (updateText) {
       try {
-        await axios.post("http://localhost:8000/update", {
+        await axios.patch("http://localhost:8000/update", {
           activity,
           updateText,
         });
@@ -28,7 +27,7 @@ export default function EditActivity({ activeFeed, activity, getActivities }) {
         <input
           onChange={(e) => setUpdateText(e.target.value)}
           value={updateText}
-          placeholder="edit"
+          placeholder="edit activity text"
         />
         <button style={{ width: "3rem" }}>Edit</button>
       </form>

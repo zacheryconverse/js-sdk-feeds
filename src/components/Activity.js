@@ -7,7 +7,12 @@ import DeleteActivity from "./DeleteActivity";
 import EditActivity from "./serverSide/EditActivity";
 import Follow from "./Follow";
 
-export default function Activity({ activeFeed, activity, getActivities, client }) {
+export default function Activity({
+  activeFeed,
+  activity,
+  getActivities,
+  reactionFeed,
+}) {
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
@@ -26,7 +31,11 @@ export default function Activity({ activeFeed, activity, getActivities, client }
           <LoveButton activeFeed={activeFeed} activity={activity} />
         </div>
         <Follow activeFeed={activeFeed} />
-        <Comments activeFeed={activeFeed} activity={activity} client={client}/>
+        <Comments
+          activeFeed={activeFeed}
+          activity={activity}
+          reactionFeed={reactionFeed}
+        />
         <DeleteActivity activity={activity} activeFeed={activeFeed} />
       </div>
     </div>

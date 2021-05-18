@@ -10,7 +10,8 @@ function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
-console.log(activeFeed)
+  const [reactionFeed, setReactionFeed] = useState(null);
+
   const getActivities = async () => {
     const results = await activeFeed.get({
       // ranking: 'popularity'
@@ -24,9 +25,13 @@ console.log(activeFeed)
   return (
     <div className="App">
       {!activeFeed ? (
-        <Login setActiveFeed={setActiveFeed} setClient={setClient} />
+        <Login
+          setActiveFeed={setActiveFeed}
+          setClient={setClient}
+          setReactionFeed={setReactionFeed}
+        />
       ) : (
-        <div>
+        <>
           <Banner />
           <FeedSelector client={client} setActiveFeed={setActiveFeed} />
           <PostToFeed activeFeed={activeFeed} getActivities={getActivities} client={client}/>
@@ -35,9 +40,9 @@ console.log(activeFeed)
             activities={activities}
             getActivities={getActivities}
             setActiveFeed={setActiveFeed}
-            client={client}
+            reactionFeed={reactionFeed}
           />
-        </div>
+        </>
       )}
     </div>
   );
