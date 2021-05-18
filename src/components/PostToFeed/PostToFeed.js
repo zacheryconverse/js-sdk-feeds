@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./PostToFeed.css";
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-
+  const globalFeed = activeFeed.client.feed('global', 'all')
   const addActivity = async (e) => {
     e.preventDefault();
 
@@ -14,6 +14,14 @@ export default function PostToFeed({ activeFeed, getActivities }) {
       time: new Date(),
       text: message,
     });
+
+    await globalFeed.addActivity({
+      verb: "add",
+      object: "picture:9",
+      foreign_id: "picture:9",
+      time: new Date(),
+      text: message,
+    })
     getActivities();
     setMessage("");
   };

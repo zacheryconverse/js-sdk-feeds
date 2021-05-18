@@ -6,7 +6,11 @@ import user from "../../icons/user.svg";
 
 export default function FeedSelector({ client, setActiveFeed }) {
   const handleFeedClick = (feedType) => {
-    setActiveFeed(client.feed(feedType, client.userId));
+    if (feedType === "global") {
+      setActiveFeed(client.feed(feedType, "all"));
+    } else {
+      setActiveFeed(client.feed(feedType, client.userId));
+    }
   };
 
   return (
