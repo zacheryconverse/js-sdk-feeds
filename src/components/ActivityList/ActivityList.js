@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
+import { GlobalFeedContext } from '../../FeedsContext'
+
 export default function ActivityList({
   activeFeed,
   activities,
@@ -9,7 +11,8 @@ export default function ActivityList({
   reactionFeed
 }) {
   const [offset, setOffset] = useState(10);
-
+  const globalFeed = useContext(GlobalFeedContext)
+console.log(globalFeed)
   useEffect(() => {
     getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps

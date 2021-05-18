@@ -9,9 +9,9 @@ export default function Comments({ activeFeed, activity, reactionFeed }) {
   //   activeFeed.client.userId
   // );
 
+
   const submitComment = async (e) => {
     e.preventDefault();
-
     if (comment) {
       activeFeed.client.reactions.add("comment", activity.id, {
         text: comment,

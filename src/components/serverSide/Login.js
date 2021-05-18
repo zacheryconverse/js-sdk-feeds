@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalFeedContext } from '../../FeedsContext';
 import axios from "axios";
 const stream = require("getstream");
 
@@ -7,6 +8,7 @@ const appID = process.env["REACT_APP_ID"];
 
 export default function Login({ setActiveFeed, setClient, setReactionFeed }) {
   const [userID, setUserID] = useState("");
+  const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
 
   const handleUserIDSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ export default function Login({ setActiveFeed, setClient, setReactionFeed }) {
       setClient(client);
       setActiveFeed(client.feed("user", client.userId));
       setReactionFeed(client.feed("reaction", client.userId));
+      setGlobalFeed(client.feed("global", client.userId))
     } catch (err) {
       console.error("ERROR", err);
     }
