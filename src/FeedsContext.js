@@ -1,5 +1,5 @@
+import { create } from "domain";
 import React, { useState, createContext } from "react";
-const stream = require("getstream");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
@@ -8,7 +8,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 export const GlobalFeedContext = createContext();
 
 export const GlobalFeedProvider = (props) => {
-  const [globalFeed, setGlobalFeed] = useState([]);
+  const [globalFeed, setGlobalFeed] = useState(null);
   return (
     <GlobalFeedContext.Provider value={[globalFeed, setGlobalFeed]}>
       {props.children}
@@ -19,14 +19,21 @@ export const GlobalFeedProvider = (props) => {
 export const ReactionFeedContext = createContext();
 
 export const ReactionFeedProvider = (props) => {
-  // const [globalFeed] = useState(StreamChat.getInstance(appKey));
-  // return (
-  //   <ChatClientContext.Provider value={chatClient}>
-  //     {props.children}
-  //   </ChatClientContext.Provider>
-  // );
+  const [reactionFeed, setReactionFeed] = useState(null);
+  return (
+    <ReactionFeedContext.Provider value={[reactionFeed, setReactionFeed]}>
+      {props.children}
+    </ReactionFeedContext.Provider>
+  );
 };
 
-export const UserFeedProvider = (props) => {
+export const UserFeedContext = createContext();
 
+export const UserFeedProvider = (props) => {
+const [userFeed, setUserFeed] = useState(null);
+return (
+  <ReactionFeedContext.Provider value={[userFeed, setUserFeed]}>
+    {props.children}
+  </ReactionFeedContext.Provider>
+);
 }
