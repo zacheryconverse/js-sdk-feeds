@@ -1,31 +1,34 @@
 import { useState } from "react";
 import formatTime from "../utils/formatTime";
+import getReactions from "../utils/getReactions";
 import DeleteComment from "./DeleteComment";
 
-export default function CommentList({ activeFeed, activity, commentCount, reactionFeed }) {
-  // const [commentCount, setCommentCount] = useState(
-  //   activity.reaction_counts?.comment || 0
-  // );
+export default function CommentList({
+  activeFeed,
+  activity,
+  commentCount,
+  reactionFeed,
+}) {
   const [reactions, setReactions] = useState([]);
   const [showComments, setShowComments] = useState(false);
 
   const handleCommentsClick = async () => {
     try {
-      if (!reactions.length) {
-        const response = await activeFeed.client.reactions.filter({
-          activity_id: activity.id,
-        });
+      // if (!reactions.length) {
+      // const response = await activeFeed.client.reactions.filter({
+      //   activity_id: activity.id,
+      // });
+      const response = await getReactions(reactionFeed, activity);
+      setReactions(response.results);
 
-        setReactions(response.results);
+      // reactionFeed.subscribe(async () => {
+      //   const response = await activeFeed.client.reactions.filter({
+      //     activity_id: activity.id,
+      //   });
 
-        reactionFeed.subscribe(async () => {
-          const response = await activeFeed.client.reactions.filter({
-            activity_id: activity.id,
-          });
-
-          setReactions(response.results);
-        });
-      }
+      //   setReactions(response.results);
+      // });
+      // }
 
       setShowComments(!showComments);
     } catch (err) {

@@ -11,16 +11,22 @@ export default function Comments({ activeFeed, activity, reactionFeed }) {
     e.preventDefault();
 
     if (comment) {
-      activeFeed.client.reactions.add("comment", activity.id, {
-        text: comment,
-      });
-      reactionFeed.addActivity({
-        object: "comment:1",
-        text: comment,
-        verb: "comment",
-      });
-      setCommentCount(commentCount + 1);
-      setComment("");
+      try {
+        activeFeed.client.reactions.add("comment", activity.id, {
+          text: comment,
+        });
+
+        reactionFeed.addActivity({
+          object: "comment:1",
+          text: comment,
+          verb: "comment",
+        });
+
+        setCommentCount(commentCount + 1);
+        setComment("");
+      } catch (err) {
+        console.log(err);
+      }
     } else console.log("No Text in Comment Box");
   };
 

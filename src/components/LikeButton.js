@@ -19,12 +19,12 @@ export default function LikeButton({ activeFeed, activity, reactionFeed }) {
     //   setName("liked");
     // }
 
-    reactionFeed.subscribe(async () => {
-      const response = await activeFeed.client.reactions.filter({
-        activity_id: activity.id,
-      });
-      console.log('res', response);
-    });
+    // reactionFeed.subscribe(async () => {
+    //   const response = await activeFeed.client.reactions.filter({
+    //     activity_id: activity.id,
+    //   });
+    //   console.log('res', response);
+    // });
   };
 
   return (
