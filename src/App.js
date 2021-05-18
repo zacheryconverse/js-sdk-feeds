@@ -11,7 +11,7 @@ function App() {
   const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
   const [reactionFeed, setReactionFeed] = useState(null);
-  const [subscribeData] = useState(null);
+  const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
     const results = await activeFeed.get({
@@ -30,6 +30,7 @@ function App() {
           setActiveFeed={setActiveFeed}
           reactionFeed={reactionFeed}
           setClient={setClient}
+          setSubscribeData={setSubscribeData}
           setReactionFeed={setReactionFeed}
         />
       ) : (

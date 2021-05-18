@@ -17,11 +17,11 @@ export default function Comments({
 
     if (comment) {
       try {
-        activeFeed.client.reactions.add("comment", activity.id, {
+        await activeFeed.client.reactions.add("comment", activity.id, {
           text: comment,
         });
 
-        reactionFeed.addActivity({
+        await reactionFeed.addActivity({
           object: "comment:1",
           text: comment,
           verb: "comment",

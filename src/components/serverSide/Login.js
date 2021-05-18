@@ -15,18 +15,21 @@ export default function Login({
 
   const handleUserIDSubmit = async (e) => {
     e.preventDefault();
-    const result = await axios.post("http://localhost:8000/token", { userID });
     try {
+      const result = await axios.post("http://localhost:8000/token", {
+        userID,
+      });
       const client = stream.connect(key, result.data, appID);
+
       setClient(client);
       setActiveFeed(client.feed("user", client.userId));
-      
-      const reactionFeed = await client.feed("reaction", client.userId);
+
+      const reactionFeed = client.feed("reaction", client.userId);
       setReactionFeed(reactionFeed);
 
       await reactionFeed.subscribe(async (data) => {
-        setSubscribeData([data]);
-        console.log('Subscribe Data: ', data);
+        setSubscribeData(data);
+        console.log("Subscribe Data: ", data);
       });
       console.log("listening to reactionFeed");
     } catch (err) {
