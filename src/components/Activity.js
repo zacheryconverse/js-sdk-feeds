@@ -12,13 +12,15 @@ export default function Activity({
   activity,
   getActivities,
   reactionFeed,
+  subscribeData,
 }) {
   return (
     <div style={activityContainer}>
       <div style={activityLeft}>
         <p style={activitySmall}>
-          {activity.actor.id} - {formatTime(new Date(activity.time))} on{" "}
-          {moment(activity.time).format("MMMM Do")}
+          {`${activity.actor.id} - ${formatTime(
+            new Date(activity.time)
+          )} on ${moment(activity.time).format("MMMM Do")}`}
         </p>
         <li style={activityText}>{activity.text}</li>
         <EditActivity
@@ -35,8 +37,13 @@ export default function Activity({
           activeFeed={activeFeed}
           activity={activity}
           reactionFeed={reactionFeed}
+          subscribeData={subscribeData}
         />
-        <DeleteActivity activity={activity} activeFeed={activeFeed} />
+        <DeleteActivity
+          activity={activity}
+          activeFeed={activeFeed}
+          getActivities={getActivities}
+        />
       </div>
     </div>
   );

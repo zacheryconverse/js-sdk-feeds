@@ -1,27 +1,37 @@
 import { useState } from "react";
 import CommentList from "./CommentList";
 
-export default function Comments({ activeFeed, activity, reactionFeed }) {
+export default function Comments({
+  activeFeed,
+  activity,
+  reactionFeed,
+  subscribeData,
+}) {
   const [comment, setComment] = useState("");
-
-  // const reactionFeed = activeFeed.client.feed(
-  //   "reaction",
-  //   activeFeed.client.userId
-  // );
+  const [commentCount, setCommentCount] = useState(
+    activity.reaction_counts?.comment || 0
+  );
 
   const submitComment = async (e) => {
     e.preventDefault();
 
     if (comment) {
-      activeFeed.client.reactions.add("comment", activity.id, {
-        text: comment,
-      });
-      reactionFeed.addActivity({
-        object: "comment:1",
-        text: comment,
-        verb: "comment",
-      });
-      setComment("");
+      try {
+        activeFeed.client.reactions.add("comment", activity.id, {
+          text: comment,
+        });
+
+        reactionFeed.addActivity({
+          object: "comment:1",
+          text: comment,
+          verb: "comment",
+        });
+
+        setCommentCount(commentCount + 1);
+        setComment("");
+      } catch (err) {
+        console.log(err);
+      }
     } else console.log("No Text in Comment Box");
   };
 
@@ -30,7 +40,9 @@ export default function Comments({ activeFeed, activity, reactionFeed }) {
       <CommentList
         activeFeed={activeFeed}
         activity={activity}
+        commentCount={commentCount}
         reactionFeed={reactionFeed}
+        subscribeData={subscribeData}
       />
       <form onSubmit={submitComment}>
         <input

@@ -1,44 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import formatTime from "../utils/formatTime";
+import getReactions from "../utils/getReactions";
 import DeleteComment from "./DeleteComment";
 
-export default function CommentList({ activeFeed, activity, reactionFeed }) {
-  const [reactions, setReactions] = useState([]);
+export default function CommentList({
+  activeFeed,
+  activity,
+  commentCount,
+  reactionFeed,
+  subscribeData,
+}) {
   const [showComments, setShowComments] = useState(false);
+  const [reactions, setReactions] = useState([]);
 
-  const handleCommentsClick = async () => {
-    try {
-      if (!reactions.length) {
-        const response = await activeFeed.client.reactions.filter({
-          activity_id: activity.id,
-        });
-
+  useEffect(() => {
+    if (showComments) {
+      const fetchReactions = async () => {
+        const response = await getReactions(reactionFeed, activity);
         setReactions(response.results);
+      };
 
-        reactionFeed.subscribe(async () => {
-          const response = await activeFeed.client.reactions.filter({
-            activity_id: activity.id,
-          });
-
-          setReactions(response.results);
-        });
-      }
-
-      setShowComments(!showComments);
-    } catch (err) {
-      console.log(err);
+      fetchReactions();
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subscribeData, showComments]);
 
   return (
     <>
-      <button onClick={handleCommentsClick}>
-        Comments: ({activity.reaction_counts?.comment || 0})
+      <button onClick={() => setShowComments(!showComments)}>
+        Comments: ({commentCount})
       </button>
       {showComments &&
         reactions.map(
           (reaction) =>
-            reaction.kind === "comment" && (
+            reaction?.kind === "comment" && (
               <div
                 key={reaction.id}
                 style={{ display: "flex", justifyContent: "space-between" }}
