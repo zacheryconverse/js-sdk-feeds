@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import formatTime from "../utils/formatTime";
 import DeleteComment from "./DeleteComment";
 
-export default function CommentList({ activeFeed, activity, reactionFeed }) {
-  const [commentCount, setCommentCount] = useState("");
+export default function CommentList({ activeFeed, activity, commentCount, reactionFeed }) {
+  // const [commentCount, setCommentCount] = useState(
+  //   activity.reaction_counts?.comment || 0
+  // );
   const [reactions, setReactions] = useState([]);
   const [showComments, setShowComments] = useState(false);
 
@@ -30,20 +32,6 @@ export default function CommentList({ activeFeed, activity, reactionFeed }) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    setCommentCount(activity.reaction_counts?.comment || 0);
-    console.log(reactions);
-    // const getCommentCount = () => {
-    //   reactions.forEach((reaction) => {
-    //     if (reaction.kind === "comment") setCommentCount(commentCount + 1);
-    //   });
-    //   setCommentCount(commentCount || activity.reaction_counts?.comment || 0);
-    // };
-
-    // getCommentCount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activity]);
 
   return (
     <>

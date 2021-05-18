@@ -3,6 +3,9 @@ import CommentList from "./CommentList";
 
 export default function Comments({ activeFeed, activity, reactionFeed }) {
   const [comment, setComment] = useState("");
+  const [commentCount, setCommentCount] = useState(
+    activity.reaction_counts?.comment || 0
+  );
 
   const submitComment = async (e) => {
     e.preventDefault();
@@ -16,6 +19,7 @@ export default function Comments({ activeFeed, activity, reactionFeed }) {
         text: comment,
         verb: "comment",
       });
+      setCommentCount(commentCount + 1);
       setComment("");
     } else console.log("No Text in Comment Box");
   };
@@ -25,6 +29,7 @@ export default function Comments({ activeFeed, activity, reactionFeed }) {
       <CommentList
         activeFeed={activeFeed}
         activity={activity}
+        commentCount={commentCount}
         reactionFeed={reactionFeed}
       />
       <form onSubmit={submitComment}>
