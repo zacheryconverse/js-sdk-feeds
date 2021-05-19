@@ -40,7 +40,7 @@ export default function Activity({
             getActivities={getActivities}
           />
         </div>
-        <Follow activeFeed={activeFeed} />
+        <Follow activeFeed={activeFeed} activity={activity}/>
         <Comments
           activeFeed={activeFeed}
           activity={activity}

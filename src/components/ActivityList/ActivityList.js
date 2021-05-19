@@ -22,7 +22,7 @@ export default function ActivityList({
   };
 
   const loadMoreActivities = async () => {
-    const results = await activeFeed.get({ offset, limit: 10 });
+    const results = await activeFeed.get({ offset: offset, limit: 10 });
     setActivities([...activities, ...results.results]);
     setOffset(offset + 10);
   };

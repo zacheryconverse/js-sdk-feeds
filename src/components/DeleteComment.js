@@ -10,7 +10,7 @@ export default function DeleteComment({ activeFeed, activity, reaction, setReact
     setReactions(response.results);
   };
 
-  return reaction.user_id === activeFeed.userId ? (
+  return reaction.user_id === activeFeed.client.userId ? (
     <button
       style={{ backgroundColor: "transparent", border: "none" }}
       onClick={() => handleDeleteClick()}

@@ -18,14 +18,12 @@ function App() {
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
-    console.log(activeFeed);
     const results = await activeFeed.get({
       // ranking: 'popularity'
       limit: 10,
       enrich: true,
       reactions: { own: true, counts: true, recent: true },
     });
-    console.log(results.results);
     setActivities(results.results);
   };
 
@@ -55,6 +53,7 @@ function App() {
                     getActivities={getActivities}
                     setActiveFeed={setActiveFeed}
                     subscribeData={subscribeData}
+                    setActivities={setActivities}
                   />
                 </>
               )}

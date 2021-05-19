@@ -12,7 +12,7 @@ export default function CommentList({
 }) {
   const [showComments, setShowComments] = useState(false);
   const [reactions, setReactions] = useState([]);
-
+  
   useEffect(() => {
     if (showComments) {
       const fetchReactions = async () => {
