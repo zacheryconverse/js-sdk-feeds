@@ -1,12 +1,10 @@
 import { useState, useContext } from "react";
 import "./PostToFeed.css";
 import {
-  GlobalFeedContext,
   UserFeedContext,
 } from "../../FeedsContext";
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-  const globalFeed = useContext(GlobalFeedContext);
   const userFeed = useContext(UserFeedContext);
 
   const addActivity = async (e) => {
@@ -21,13 +19,6 @@ export default function PostToFeed({ activeFeed, getActivities }) {
       to: ['global:all']
     });
 
-    // await globalFeed[0].addActivity({
-    //   verb: "add",
-    //   object: "picture:9",
-    //   foreign_id: "picture:9",
-    //   time: new Date(),
-    //   text: message,
-    // })
     getActivities();
     setMessage("");
   };

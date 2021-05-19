@@ -1,19 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
-import { GlobalFeedContext, UserFeedContext, ReactionFeedContext } from '../../FeedsContext'
 
 export default function ActivityList({
   activeFeed,
   activities,
   getActivities,
   setActivities,
-  reactionFeed
+  reactionFeed,
+  subscribeData,
 }) {
   const [offset, setOffset] = useState(10);
-  const globalFeed = useContext(GlobalFeedContext)
   useEffect(() => {
-    getActivities();
+    getActivities()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFeed]);
 
@@ -40,6 +39,7 @@ export default function ActivityList({
               activity={activity}
               getActivities={getActivities}
               reactionFeed={reactionFeed}
+              subscribeData={subscribeData}
             />
           ))}
       </ul>

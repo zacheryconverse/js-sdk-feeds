@@ -14,7 +14,6 @@ export default function FeedSelector({ client, setActiveFeed }) {
   const userFeed = useContext(UserFeedContext);
   const timelineFeed = useContext(TimelineFeedContext);
 
-  console.log(globalFeed);
   const handleFeedClick = (feedType) => {
     if (feedType === "global") {
       setActiveFeed(globalFeed[0]);

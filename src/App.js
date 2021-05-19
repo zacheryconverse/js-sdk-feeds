@@ -15,14 +15,17 @@ function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
+  const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
+    console.log(activeFeed);
     const results = await activeFeed.get({
       // ranking: 'popularity'
       limit: 10,
       enrich: true,
       reactions: { own: true, counts: true, recent: true },
     });
+    console.log(results.results);
     setActivities(results.results);
   };
 
@@ -33,7 +36,11 @@ function App() {
           <TimelineFeedProvider>
             <div className="App">
               {!activeFeed ? (
-                <Login setActiveFeed={setActiveFeed} setClient={setClient} />
+                <Login
+                  setActiveFeed={setActiveFeed}
+                  setClient={setClient}
+                  setSubscribeData={setSubscribeData}
+                />
               ) : (
                 <>
                   <Banner />
@@ -47,6 +54,7 @@ function App() {
                     activities={activities}
                     getActivities={getActivities}
                     setActiveFeed={setActiveFeed}
+                    subscribeData={subscribeData}
                   />
                 </>
               )}

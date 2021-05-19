@@ -1,5 +1,5 @@
-export default async function getReactions(activeFeed, activity) {
-  return await activeFeed.client.reactions.filter({
+export default async function getReactions(reactionFeed, activity) {
+  return await reactionFeed[0].client?.reactions.filter({
     activity_id: activity.id,
   });
 }

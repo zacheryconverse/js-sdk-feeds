@@ -1,28 +1,41 @@
 import { useState, useContext } from "react";
 import CommentList from "./CommentList";
 import {
-  GlobalFeedContext,
   UserFeedContext,
   ReactionFeedContext
 } from "../FeedsContext";
-export default function Comments({ activeFeed, activity }) {
+export default function Comments({
+  activeFeed,
+  activity,
+  // reactionFeed,
+  subscribeData,
+}) {
   const [comment, setComment] = useState("");
-  const globalFeed = useContext(GlobalFeedContext);
+  const [commentCount, setCommentCount] = useState(
+    activity.reaction_counts?.comment || 0
+  );
   const userFeed = useContext(UserFeedContext);
   const reactionFeed = useContext(ReactionFeedContext);
 
   const submitComment = async (e) => {
     e.preventDefault();
     if (comment) {
-      userFeed[0].client.reactions.add("comment", activity.id, {
-        text: comment,
-      }).then(r => console.log(r));
-      reactionFeed[0].addActivity({
-        object: "comment:1",
-        text: comment,
-        verb: "comment",
-      });
-      setComment("");
+      try {
+        await userFeed[0].client.reactions.add("comment", activity.id, {
+          text: comment,
+        }).then(r => console.log(r));
+
+        await  reactionFeed[0].addActivity({
+          object: "comment:1",
+          text: comment,
+          verb: "comment",
+        });
+
+        setCommentCount(commentCount + 1);
+        setComment("");
+      } catch (err) {
+        console.log(err);
+      }
     } else console.log("No Text in Comment Box");
   };
 
@@ -31,7 +44,9 @@ export default function Comments({ activeFeed, activity }) {
       <CommentList
         activeFeed={activeFeed}
         activity={activity}
+        commentCount={commentCount}
         reactionFeed={reactionFeed}
+        subscribeData={subscribeData}
       />
       <form onSubmit={submitComment}>
         <input
