@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Activity from "../Activity";
 import "./ActivityList.css";
+
 export default function ActivityList({
   activeFeed,
   activities,
@@ -10,11 +11,10 @@ export default function ActivityList({
   subscribeData,
 }) {
   const [offset, setOffset] = useState(10);
-
   useEffect(() => {
-    getActivities();
+    getActivities()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [activeFeed]);
 
   const refreshActivities = async () => {
     const results = await activeFeed.get({ limit: 10 });

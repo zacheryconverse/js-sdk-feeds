@@ -17,9 +17,8 @@ export default function CommentList({
     if (showComments) {
       const fetchReactions = async () => {
         const response = await getReactions(reactionFeed, activity);
-        setReactions(response.results);
+        setReactions(response?.results);
       };
-
       fetchReactions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,7 +30,7 @@ export default function CommentList({
         Comments: ({commentCount})
       </button>
       {showComments &&
-        reactions.map(
+        reactions?.map(
           (reaction) =>
             reaction?.kind === "comment" && (
               <div

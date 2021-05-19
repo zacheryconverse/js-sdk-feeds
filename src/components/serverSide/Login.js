@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from "react";
+import { ReactionFeedContext, UserFeedContext, GlobalFeedContext, TimelineFeedContext } from '../../FeedsContext';
+
 import axios from "axios";
 const stream = require("getstream");
 
@@ -8,10 +11,14 @@ const appID = process.env["REACT_APP_ID"];
 export default function Login({
   setActiveFeed,
   setClient,
-  setReactionFeed,
+  // setReactionFeed,
   setSubscribeData,
 }) {
   const [userID, setUserID] = useState("");
+  const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
+  const [reactionFeed, setReactionFeed] = useContext(ReactionFeedContext);
+  const [userFeed, setUserFeed] = useContext(UserFeedContext);
+  const [timeLine, setTimelineFeed] = useContext(TimelineFeedContext);
 
   const handleUserIDSubmit = async (e) => {
     e.preventDefault();
@@ -22,12 +29,14 @@ export default function Login({
       const client = stream.connect(key, result.data, appID);
 
       setClient(client);
-      setActiveFeed(client.feed("user", client.userId));
+      setActiveFeed(client.feed("timeline", client.userId));
+      setGlobalFeed(client.feed("global", "all"));
+      setUserFeed(client.feed("user", client.userId))
+      setTimelineFeed(client.feed("timeline", client.userId))
+      const reactions = client.feed('reaction', client.userId)
+      setReactionFeed(reactions)
 
-      const reactionFeed = client.feed("reaction", client.userId);
-      setReactionFeed(reactionFeed);
-
-      await reactionFeed.subscribe(async (data) => {
+      await reactions.subscribe(async (data) => {
         setSubscribeData(data);
         console.log("Subscribe Data: ", data);
       });

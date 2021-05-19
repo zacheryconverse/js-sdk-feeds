@@ -5,50 +5,64 @@ import FeedSelector from "./components/FeedSelector/FeedSelector";
 import Login from "./components/serverSide/Login";
 import PostToFeed from "./components/PostToFeed/PostToFeed";
 import { Banner } from "./components/Banner/Banner";
-
+import {
+  GlobalFeedProvider,
+  UserFeedProvider,
+  ReactionFeedProvider,
+  TimelineFeedProvider,
+} from "./FeedsContext";
 function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
-  const [reactionFeed, setReactionFeed] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
+    console.log(activeFeed);
     const results = await activeFeed.get({
       // ranking: 'popularity'
       limit: 10,
       enrich: true,
       reactions: { own: true, counts: true, recent: true },
     });
+    console.log(results.results);
     setActivities(results.results);
   };
 
   return (
-    <div className="App">
-      {!activeFeed ? (
-        <Login
-          setActiveFeed={setActiveFeed}
-          reactionFeed={reactionFeed}
-          setClient={setClient}
-          setSubscribeData={setSubscribeData}
-          setReactionFeed={setReactionFeed}
-        />
-      ) : (
-        <>
-          <Banner />
-          <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-          <PostToFeed activeFeed={activeFeed} getActivities={getActivities} />
-          <ActivityList
-            activeFeed={activeFeed}
-            activities={activities}
-            getActivities={getActivities}
-            setActiveFeed={setActiveFeed}
-            reactionFeed={reactionFeed}
-            subscribeData={subscribeData}
-          />
-        </>
-      )}
-    </div>
+    <GlobalFeedProvider>
+      <UserFeedProvider>
+        <ReactionFeedProvider>
+          <TimelineFeedProvider>
+            <div className="App">
+              {!activeFeed ? (
+                <Login
+                  setActiveFeed={setActiveFeed}
+                  setClient={setClient}
+                  setSubscribeData={setSubscribeData}
+                />
+              ) : (
+                <>
+                  <Banner />
+                  <FeedSelector client={client} setActiveFeed={setActiveFeed} />
+                  <PostToFeed
+                    activeFeed={activeFeed}
+                    getActivities={getActivities}
+                  />
+                  <ActivityList
+                    activeFeed={activeFeed}
+                    activities={activities}
+                    getActivities={getActivities}
+                    setActiveFeed={setActiveFeed}
+                    subscribeData={subscribeData}
+                  />
+                </>
+              )}
+            </div>
+          </TimelineFeedProvider>
+        </ReactionFeedProvider>
+      </UserFeedProvider>
+    </GlobalFeedProvider>
   );
 }
 

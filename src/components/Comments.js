@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CommentList from "./CommentList";
-
+import {
+  UserFeedContext,
+  ReactionFeedContext
+} from "../FeedsContext";
 export default function Comments({
   activeFeed,
   activity,
-  reactionFeed,
+  // reactionFeed,
   subscribeData,
 }) {
   const [comment, setComment] = useState("");
   const [commentCount, setCommentCount] = useState(
     activity.reaction_counts?.comment || 0
   );
+  const userFeed = useContext(UserFeedContext);
+  const reactionFeed = useContext(ReactionFeedContext);
 
   const submitComment = async (e) => {
     e.preventDefault();
-
     if (comment) {
       try {
-        await activeFeed.client.reactions.add("comment", activity.id, {
+        await userFeed[0].client.reactions.add("comment", activity.id, {
           text: comment,
-        });
+        }).then(r => console.log(r));
 
-        await reactionFeed.addActivity({
+        await  reactionFeed[0].addActivity({
           object: "comment:1",
           text: comment,
           verb: "comment",
