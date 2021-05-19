@@ -18,7 +18,6 @@ function App() {
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
-    console.log(activeFeed);
     const results = await activeFeed.get({
       // ranking: 'popularity'
       limit: 10,

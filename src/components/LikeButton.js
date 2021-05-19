@@ -17,24 +17,12 @@ export default function LikeButton({
           activity.own_reactions.like[0].id
         );
 
-        // await reactionFeed
-        //   .removeActivity(activity.id)
-        //   .then((res) => console.log("removed", res));
 
         setName("not-liked");
       } else {
         await activeFeed.client.reactions.add("like", activity.id);
         setName("liked");
 
-        // await reactionFeed
-        //   .addActivity({
-        //     object: "like:1",
-        //     like: true,
-        //     verb: "like",
-        //   })
-        //   .then((res) => {
-        //     console.log("reactionFeed", res);
-        //   });
       }
 
       getActivities();
