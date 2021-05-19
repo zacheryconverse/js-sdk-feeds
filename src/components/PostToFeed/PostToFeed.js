@@ -18,15 +18,16 @@ export default function PostToFeed({ activeFeed, getActivities }) {
       foreign_id: "picture:9",
       time: new Date(),
       text: message,
+      to: ['global:all']
     });
 
-    await globalFeed[0].addActivity({
-      verb: "add",
-      object: "picture:9",
-      foreign_id: "picture:9",
-      time: new Date(),
-      text: message,
-    })
+    // await globalFeed[0].addActivity({
+    //   verb: "add",
+    //   object: "picture:9",
+    //   foreign_id: "picture:9",
+    //   time: new Date(),
+    //   text: message,
+    // })
     getActivities();
     setMessage("");
   };

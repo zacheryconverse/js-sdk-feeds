@@ -12,7 +12,6 @@ export default function ActivityList({
 }) {
   const [offset, setOffset] = useState(10);
   const globalFeed = useContext(GlobalFeedContext)
-console.log(globalFeed)
   useEffect(() => {
     getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
