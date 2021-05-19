@@ -25,7 +25,6 @@ function App() {
       enrich: true,
       reactions: { own: true, counts: true, recent: true },
     });
-    console.log(results.results);
     setActivities(results.results);
   };
 
@@ -55,6 +54,7 @@ function App() {
                     getActivities={getActivities}
                     setActiveFeed={setActiveFeed}
                     subscribeData={subscribeData}
+                    setActivities={setActivities}
                   />
                 </>
               )}
