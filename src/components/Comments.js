@@ -17,9 +17,6 @@ export default function Comments({ activeFeed, activity }) {
       userFeed[0].client.reactions.add("comment", activity.id, {
         text: comment,
       }).then(r => console.log(r));
-      globalFeed[0].client.reactions.add("comment", activity.id, {
-        text: comment,
-      }).then(r => console.log(r));
       reactionFeed[0].addActivity({
         object: "comment:1",
         text: comment,
