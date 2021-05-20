@@ -17,12 +17,12 @@ function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [activities, setActivities] = useState(null);
   const [client, setClient] = useState("");
-  // const [notificationFeed, setNotificationFeed] = useState(null);
-  // const [notifications, setNotifications] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
-    console.log('feed', activeFeed);
+    // console.log('feed', activeFeed);
     let results;
     if (activeFeed.slug !== "notification") {
       results = await activeFeed.get({
@@ -34,8 +34,6 @@ function App() {
       setActivities(results.results);
     } else {
       results = await activeFeed.get();
-      // .then((r) => console.log(r))
-      // .catch((err) => console.log(err));
       console.log(results.results);
       setNotifications(results);
     }
@@ -73,6 +71,16 @@ function App() {
                       subscribeData={subscribeData}
                       setActivities={setActivities}
                     />
+                    {activeFeed.slug !== 'notification' && (
+                      <ActivityList
+                        activeFeed={activeFeed}
+                        activities={activities}
+                        getActivities={getActivities}
+                        setActiveFeed={setActiveFeed}
+                        subscribeData={subscribeData}
+                        setActivities={setActivities}
+                      />
+                    )}
                   </>
                 )}
               </div>

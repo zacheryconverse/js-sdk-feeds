@@ -1,19 +1,14 @@
-import { TimelineFeedContext, NotificationFeedContext } from '../FeedsContext';
+import { TimelineFeedContext } from '../FeedsContext';
 import React, { useContext, useEffect, useState } from 'react';
 
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
-  const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
-<<<<<<< HEAD
+  // eslint-disable-next-line no-unused-vars
   const [timelineFeed, setTimelineFeed] = useContext(TimelineFeedContext)
 
-=======
-  const timelineFeed = useContext(TimelineFeedContext)
-  console.log(notificationFeed)
->>>>>>> de998e3 (Adds notification feeds to context)
   useEffect(() => {
     const determineIfFollowing = async () => {
-      const response = await timelineFeed[0].following({ filter: ['user:' + activity.actor.id]})
+      const response = await timelineFeed.following({ filter: ['user:' + activity.actor.id]})
       if (response.results.length) {
         setIsFollowing(true)
       } else {

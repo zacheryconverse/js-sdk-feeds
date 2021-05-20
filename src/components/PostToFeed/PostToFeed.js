@@ -4,6 +4,7 @@ import { UserFeedContext } from "../../FeedsContext";
 
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
 
   const addActivity = async (e) => {
