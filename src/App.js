@@ -10,6 +10,7 @@ import {
   UserFeedProvider,
   ReactionFeedProvider,
   TimelineFeedProvider,
+  NotificationFeedProvider,
 } from "./FeedsContext";
 
 function App() {
@@ -34,35 +35,37 @@ function App() {
       <UserFeedProvider>
         <ReactionFeedProvider>
           <TimelineFeedProvider>
-            <div className="App">
-              {!activeFeed ? (
-                <Login
-                  notificationFeed={notificationFeed}
-                  setActiveFeed={setActiveFeed}
-                  setClient={setClient}
-                  setNotificationFeed={setNotificationFeed}
-                  setSubscribeData={setSubscribeData}
-                />
-              ) : (
-                <>
-                  <Banner />
-                  <FeedSelector
-                    client={client}
+            <NotificationFeedProvider>
+              <div className="App">
+                {!activeFeed ? (
+                  <Login
                     notificationFeed={notificationFeed}
                     setActiveFeed={setActiveFeed}
+                    setClient={setClient}
+                    setNotificationFeed={setNotificationFeed}
+                    setSubscribeData={setSubscribeData}
                   />
-                  <PostToFeed getActivities={getActivities} />
-                  <ActivityList
-                    activeFeed={activeFeed}
-                    activities={activities}
-                    getActivities={getActivities}
-                    setActiveFeed={setActiveFeed}
-                    subscribeData={subscribeData}
-                    setActivities={setActivities}
-                  />
-                </>
-              )}
-            </div>
+                ) : (
+                  <>
+                    <Banner />
+                    <FeedSelector
+                      client={client}
+                      notificationFeed={notificationFeed}
+                      setActiveFeed={setActiveFeed}
+                    />
+                    <PostToFeed getActivities={getActivities} />
+                    <ActivityList
+                      activeFeed={activeFeed}
+                      activities={activities}
+                      getActivities={getActivities}
+                      setActiveFeed={setActiveFeed}
+                      subscribeData={subscribeData}
+                      setActivities={setActivities}
+                    />
+                  </>
+                )}
+              </div>
+            </NotificationFeedProvider>
           </TimelineFeedProvider>
         </ReactionFeedProvider>
       </UserFeedProvider>
