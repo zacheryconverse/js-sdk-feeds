@@ -18,7 +18,7 @@ function App() {
   const [activities, setActivities] = useState(null);
   const [client, setClient] = useState("");
   // const [notificationFeed, setNotificationFeed] = useState(null);
-  const [notifications, setNotifications] = useState(null);
+  // const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
@@ -50,35 +50,29 @@ function App() {
               <div className="App">
                 {!activeFeed ? (
                   <Login
-                    activeFeed={activeFeed}
-                    getActivities={getActivities}
+                    // notificationFeed={notificationFeed}
                     setActiveFeed={setActiveFeed}
                     setClient={setClient}
+                    // setNotificationFeed={setNotificationFeed}
                     setSubscribeData={setSubscribeData}
                   />
                 ) : (
                   <>
                     <Banner />
                     <FeedSelector
-                      activeFeed={activeFeed}
                       client={client}
-                      getActivities={getActivities}
+                      // notificationFeed={notificationFeed}
                       setActiveFeed={setActiveFeed}
                     />
-                    <PostToFeed
+                    <PostToFeed getActivities={getActivities} />
+                    <ActivityList
                       activeFeed={activeFeed}
+                      activities={activities}
                       getActivities={getActivities}
+                      setActiveFeed={setActiveFeed}
+                      subscribeData={subscribeData}
+                      setActivities={setActivities}
                     />
-                    {activities && (
-                      <ActivityList
-                        activeFeed={activeFeed}
-                        activities={activities}
-                        getActivities={getActivities}
-                        setActiveFeed={setActiveFeed}
-                        subscribeData={subscribeData}
-                        setActivities={setActivities}
-                      />
-                    )}
                   </>
                 )}
               </div>
