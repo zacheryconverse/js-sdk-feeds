@@ -23,7 +23,7 @@ export default function Activity({
           )} on ${moment(activity.time).format("MMMM Do")}`}
         </p>
         <li style={activityText}>{activity.text}</li>
-        {/* <EditActivity
+        <EditActivity
           activeFeed={activeFeed}
           activity={activity}
           getActivities={getActivities}
@@ -51,7 +51,7 @@ export default function Activity({
           activity={activity}
           activeFeed={activeFeed}
           getActivities={getActivities}
-        /> */}
+        />
       </div>
     </div>
   );

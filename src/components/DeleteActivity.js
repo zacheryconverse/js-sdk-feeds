@@ -6,10 +6,11 @@ export default function DeleteActivity({
   activity,
   getActivities,
 }) {
-  const userFeed = useContext(UserFeedContext);
+  // eslint-disable-next-line no-unused-vars
+  const [userFeed, setUserFeed] = useContext(UserFeedContext);
 
   const deleteActivity = async () => {
-    await userFeed[0].removeActivity(activity.id);
+    await userFeed.removeActivity(activity.id);
     // await activeFeed.client.removeActivity(activity.id);
     getActivities();
   };
