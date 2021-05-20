@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
   const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
-  const timelineFeed = useContext(TimelineFeedContext)
+  const [timelineFeed, setTimelineFeed] = useContext(TimelineFeedContext)
 
   useEffect(() => {
     const determineIfFollowing = async () => {
@@ -21,10 +21,10 @@ export default function Follow({ activeFeed, activity }) {
 
   const follow = async () => {
     if (isFollowing) {
-      timelineFeed[0].unfollow('user', activity.actor.id)
+      timelineFeed.unfollow('user', activity.actor.id)
       setIsFollowing(false)
     } else {
-      timelineFeed[0].follow('user', activity.actor.id)
+      timelineFeed.follow('user', activity.actor.id)
       setIsFollowing(true)
     }
   };
