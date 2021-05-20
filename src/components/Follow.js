@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
   const timelineFeed = useContext(TimelineFeedContext)
+
   useEffect(() => {
     const determineIfFollowing = async () => {
       const response = await timelineFeed[0].following({ filter: ['user:' + activity.actor.id]})
@@ -12,10 +13,11 @@ export default function Follow({ activeFeed, activity }) {
       } else {
         setIsFollowing(false)
       }
-    } 
+    }
     determineIfFollowing()
   }, [])
-  const follow = async (feed) => {
+
+  const follow = async () => {
     if (isFollowing) {
       timelineFeed[0].unfollow('user', activity.actor.id)
       setIsFollowing(false)
@@ -24,6 +26,7 @@ export default function Follow({ activeFeed, activity }) {
       setIsFollowing(true)
     }
   };
+
   const renderFollowButton = () => {
     if (isFollowing) {
       return 'Unfollow'
@@ -31,6 +34,7 @@ export default function Follow({ activeFeed, activity }) {
       return 'Follow'
     }
   }
+
   return activeFeed.client.userId !== activity.actor.id ? (
     <div>
       <button onClick={(e) => follow(e.target.value)}>{renderFollowButton()} {activity.actor.id}</button>

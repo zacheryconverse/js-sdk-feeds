@@ -21,7 +21,7 @@ export default function EditActivity({ activeFeed, activity, getActivities }) {
     } else console.log("Edit text empty");
   };
 
-  return activity.actor.id === activeFeed.userId ? (
+  return activity.actor.id === activeFeed.client.userId && activeFeed.id !== `notification:${activeFeed.client.userId}` ? (
     <div>
       <form onSubmit={editActivity}>
         <input

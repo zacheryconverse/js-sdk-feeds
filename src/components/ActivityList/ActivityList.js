@@ -16,10 +16,10 @@ export default function ActivityList({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFeed]);
 
-  const refreshActivities = async () => {
-    const results = await activeFeed.get({ limit: 10 });
-    setActivities(results.results);
-  };
+  // const refreshActivities = async () => {
+  //   const results = await activeFeed.get({ limit: 10 });
+  //   setActivities(results.results);
+  // };
 
   const loadMoreActivities = async () => {
     const results = await activeFeed.get({ offset: offset, limit: 10 });
@@ -29,7 +29,7 @@ export default function ActivityList({
 
   return (
     <div className="feed">
-      <button onClick={() => refreshActivities()}>Refresh</button>
+      {/* <button onClick={() => refreshActivities()}>Refresh</button> */}
       <ul>
         {activities &&
           activities.map((activity) => (

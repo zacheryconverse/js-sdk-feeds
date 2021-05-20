@@ -3,7 +3,7 @@ import "./PostToFeed.css";
 import {
   UserFeedContext,
 } from "../../FeedsContext";
-export default function PostToFeed({ activeFeed, getActivities }) {
+export default function PostToFeed({ getActivities }) {
   const [message, setMessage] = useState("");
   const userFeed = useContext(UserFeedContext);
 
@@ -16,7 +16,7 @@ export default function PostToFeed({ activeFeed, getActivities }) {
       foreign_id: "picture:9",
       time: new Date(),
       text: message,
-      to: ['global:all']
+      to: ['global:all'],
     });
 
     getActivities();
