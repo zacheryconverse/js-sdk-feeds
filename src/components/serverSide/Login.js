@@ -36,7 +36,7 @@ export default function Login({
       const client = stream.connect(key, result.data, appID);
 
       setClient(client);
-      setActiveFeed(client.feed("timeline", client.userId));
+      setActiveFeed(client.feed("user", client.userId));
       setGlobalFeed(client.feed("global", "all"));
       setNotificationFeed(client.feed("notification", client.userId));
       setTimelineFeed(client.feed("timeline", client.userId));
