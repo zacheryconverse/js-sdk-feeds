@@ -9,7 +9,11 @@ import {
   TimelineFeedContext,
 } from "../../FeedsContext";
 
-export default function FeedSelector({ client, setActiveFeed }) {
+export default function FeedSelector({
+  client,
+  notificationFeed,
+  setActiveFeed,
+}) {
   const globalFeed = useContext(GlobalFeedContext);
   const userFeed = useContext(UserFeedContext);
   const timelineFeed = useContext(TimelineFeedContext);
@@ -24,6 +28,16 @@ export default function FeedSelector({ client, setActiveFeed }) {
     if (feedType === "timeline") {
       setActiveFeed(timelineFeed[0]);
     }
+    if (feedType === "notification") {
+      setActiveFeed(notificationFeed);
+    }
+  };
+
+  const isNotification = () => {
+    return notificationFeed
+      .get()
+      .then((r) => console.log(r))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -48,6 +62,14 @@ export default function FeedSelector({ client, setActiveFeed }) {
       >
         <img src={global} className="nav-icon" alt="global feed" />
         Global
+      </button>
+      <button
+        className="feed-selector-btn"
+        onClick={() => isNotification()}
+        // onClick={() => handleFeedClick("notification")}
+      >
+        <div className="notification"></div>
+        Notifications
       </button>
     </div>
   );

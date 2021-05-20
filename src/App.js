@@ -11,10 +11,12 @@ import {
   ReactionFeedProvider,
   TimelineFeedProvider,
 } from "./FeedsContext";
+
 function App() {
   const [activeFeed, setActiveFeed] = useState("");
-  const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
+  const [client, setClient] = useState("");
+  const [notificationFeed, setNotificationFeed] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
@@ -35,17 +37,21 @@ function App() {
             <div className="App">
               {!activeFeed ? (
                 <Login
+                  notificationFeed={notificationFeed}
                   setActiveFeed={setActiveFeed}
                   setClient={setClient}
+                  setNotificationFeed={setNotificationFeed}
                   setSubscribeData={setSubscribeData}
                 />
               ) : (
                 <>
                   <Banner />
-                  <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-                  <PostToFeed
-                    getActivities={getActivities}
+                  <FeedSelector
+                    client={client}
+                    notificationFeed={notificationFeed}
+                    setActiveFeed={setActiveFeed}
                   />
+                  <PostToFeed getActivities={getActivities} />
                   <ActivityList
                     activeFeed={activeFeed}
                     activities={activities}
