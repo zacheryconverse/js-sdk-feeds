@@ -17,17 +17,28 @@ function App() {
   const [activeFeed, setActiveFeed] = useState("");
   const [activities, setActivities] = useState(null);
   const [client, setClient] = useState("");
-  const [notificationFeed, setNotificationFeed] = useState(null);
+  // const [notificationFeed, setNotificationFeed] = useState(null);
+  const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
-    const results = await activeFeed.get({
-      // ranking: 'popularity'
-      limit: 10,
-      enrich: true,
-      reactions: { own: true, counts: true, recent: true },
-    });
-    setActivities(results.results);
+    console.log('feed', activeFeed);
+    let results;
+    if (activeFeed.slug !== "notification") {
+      results = await activeFeed.get({
+        // ranking: 'popularity'
+        limit: 10,
+        enrich: true,
+        reactions: { own: true, counts: true, recent: true },
+      });
+      setActivities(results.results);
+    } else {
+      results = await activeFeed.get();
+      // .then((r) => console.log(r))
+      // .catch((err) => console.log(err));
+      console.log(results.results);
+      setNotifications(results);
+    }
   };
 
   return (
@@ -39,29 +50,35 @@ function App() {
               <div className="App">
                 {!activeFeed ? (
                   <Login
-                    notificationFeed={notificationFeed}
+                    activeFeed={activeFeed}
+                    getActivities={getActivities}
                     setActiveFeed={setActiveFeed}
                     setClient={setClient}
-                    setNotificationFeed={setNotificationFeed}
                     setSubscribeData={setSubscribeData}
                   />
                 ) : (
                   <>
                     <Banner />
                     <FeedSelector
-                      client={client}
-                      notificationFeed={notificationFeed}
-                      setActiveFeed={setActiveFeed}
-                    />
-                    <PostToFeed getActivities={getActivities} />
-                    <ActivityList
                       activeFeed={activeFeed}
-                      activities={activities}
+                      client={client}
                       getActivities={getActivities}
                       setActiveFeed={setActiveFeed}
-                      subscribeData={subscribeData}
-                      setActivities={setActivities}
                     />
+                    <PostToFeed
+                      activeFeed={activeFeed}
+                      getActivities={getActivities}
+                    />
+                    {activities && (
+                      <ActivityList
+                        activeFeed={activeFeed}
+                        activities={activities}
+                        getActivities={getActivities}
+                        setActiveFeed={setActiveFeed}
+                        subscribeData={subscribeData}
+                        setActivities={setActivities}
+                      />
+                    )}
                   </>
                 )}
               </div>
