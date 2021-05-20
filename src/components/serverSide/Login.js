@@ -5,6 +5,7 @@ import {
   UserFeedContext,
   GlobalFeedContext,
   TimelineFeedContext,
+  NotificationFeedContext,
 } from "../../FeedsContext";
 
 import axios from "axios";
@@ -14,18 +15,18 @@ const key = process.env["REACT_APP_KEY"];
 const appID = process.env["REACT_APP_ID"];
 
 export default function Login({
-  notificationFeed,
+  // notificationFeed,
   setActiveFeed,
   setClient,
-  setNotificationFeed,
+  // setNotificationFeed,
   setSubscribeData,
 }) {
   const [userID, setUserID] = useState("");
   const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
   const [reactionFeed, setReactionFeed] = useContext(ReactionFeedContext);
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
+  const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
   const [timeLine, setTimelineFeed] = useContext(TimelineFeedContext);
-
   const handleUserIDSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -42,7 +43,6 @@ export default function Login({
       setUserFeed(client.feed("user", client.userId));
       const reactions = client.feed("reaction", client.userId);
       setReactionFeed(reactions);
-
       await reactions.subscribe(async (data) => {
         setSubscribeData(data);
         console.log("Subscribe Data: ", data);

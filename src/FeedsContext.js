@@ -48,3 +48,15 @@ return (
 );
 }
 
+
+export const NotificationFeedContext = createContext();
+
+export const NotificationFeedProvider = (props) => {
+const [notificationFeed, setNotificationFeed] = useState(null);
+return (
+  <NotificationFeedContext.Provider value={[notificationFeed, setNotificationFeed]}>
+    {props.children}
+  </NotificationFeedContext.Provider>
+);
+}
+
