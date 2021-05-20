@@ -4,12 +4,13 @@ import { UserFeedContext } from "../../FeedsContext";
 
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-  const userFeed = useContext(UserFeedContext);
+  // eslint-disable-next-line no-unused-vars
+  const [userFeed, setUserFeed] = useContext(UserFeedContext);
 
   const addActivity = async (e) => {
     e.preventDefault();
 
-    await userFeed[0].addActivity({
+    await userFeed.addActivity({
       verb: "add",
       object: "picture:9",
       foreign_id: "picture:9",
