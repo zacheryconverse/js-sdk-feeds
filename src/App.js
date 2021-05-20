@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import ActivityList from "./components/ActivityList/ActivityList";
 import FeedSelector from "./components/FeedSelector/FeedSelector";
+import NotificationList from './components/NotificationList/NotificationList'
 import Login from "./components/serverSide/Login";
 import PostToFeed from "./components/PostToFeed/PostToFeed";
 import { Banner } from "./components/Banner/Banner";
@@ -22,11 +23,9 @@ function App() {
   const [subscribeData, setSubscribeData] = useState(null);
 
   const getActivities = async () => {
-    // console.log('feed', activeFeed);
     let results;
     if (activeFeed.slug !== "notification") {
       results = await activeFeed.get({
-        // ranking: 'popularity'
         limit: 10,
         enrich: true,
         reactions: { own: true, counts: true, recent: true },
@@ -34,11 +33,10 @@ function App() {
       setActivities(results.results);
     } else {
       results = await activeFeed.get();
-      console.log(results.results);
       setNotifications(results);
     }
   };
-
+console.log(activities, notifications)
   return (
     <GlobalFeedProvider>
       <UserFeedProvider>
@@ -61,17 +59,14 @@ function App() {
                       client={client}
                       // notificationFeed={notificationFeed}
                       setActiveFeed={setActiveFeed}
-                    />
-                    <PostToFeed getActivities={getActivities} />
-                    <ActivityList
-                      activeFeed={activeFeed}
-                      activities={activities}
                       getActivities={getActivities}
-                      setActiveFeed={setActiveFeed}
-                      subscribeData={subscribeData}
-                      setActivities={setActivities}
+                      activeFeed={activeFeed}
                     />
-                    {activeFeed.slug !== 'notification' && (
+                    <PostToFeed getActivities={getActivities} activeFeed={activeFeed} />
+                    {/* {activeFeed.slug ==='notification' && 
+                    <NotificationList notifications={notifications}/>
+                    } */}
+                    {activeFeed.slug !== 'notification' ? (
                       <ActivityList
                         activeFeed={activeFeed}
                         activities={activities}
@@ -80,7 +75,9 @@ function App() {
                         subscribeData={subscribeData}
                         setActivities={setActivities}
                       />
-                    )}
+                    ) :
+                    <NotificationList notifications={notifications}/>
+                    }
                   </>
                 )}
               </div>
