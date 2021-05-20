@@ -15,6 +15,7 @@ export default function Follow({ activeFeed, activity }) {
       }
     }
     determineIfFollowing()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const follow = async () => {

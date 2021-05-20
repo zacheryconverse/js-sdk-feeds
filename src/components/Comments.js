@@ -46,6 +46,7 @@ export default function Comments({
         activity={activity}
         commentCount={commentCount}
         reactionFeed={reactionFeed}
+        setCommentCount={setCommentCount}
         subscribeData={subscribeData}
       />
       <form onSubmit={submitComment}>

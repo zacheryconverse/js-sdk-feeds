@@ -1,6 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
-import { ReactionFeedContext, UserFeedContext, GlobalFeedContext, TimelineFeedContext } from '../../FeedsContext';
+import {
+  ReactionFeedContext,
+  UserFeedContext,
+  GlobalFeedContext,
+  TimelineFeedContext,
+} from "../../FeedsContext";
 
 import axios from "axios";
 const stream = require("getstream");
@@ -9,9 +14,10 @@ const key = process.env["REACT_APP_KEY"];
 const appID = process.env["REACT_APP_ID"];
 
 export default function Login({
+  notificationFeed,
   setActiveFeed,
   setClient,
-  // setReactionFeed,
+  setNotificationFeed,
   setSubscribeData,
 }) {
   const [userID, setUserID] = useState("");
@@ -31,10 +37,11 @@ export default function Login({
       setClient(client);
       setActiveFeed(client.feed("timeline", client.userId));
       setGlobalFeed(client.feed("global", "all"));
-      setUserFeed(client.feed("user", client.userId))
-      setTimelineFeed(client.feed("timeline", client.userId))
-      const reactions = client.feed('reaction', client.userId)
-      setReactionFeed(reactions)
+      setNotificationFeed(client.feed("notification", client.userId));
+      setTimelineFeed(client.feed("timeline", client.userId));
+      setUserFeed(client.feed("user", client.userId));
+      const reactions = client.feed("reaction", client.userId);
+      setReactionFeed(reactions);
 
       await reactions.subscribe(async (data) => {
         setSubscribeData(data);
