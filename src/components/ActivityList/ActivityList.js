@@ -12,9 +12,9 @@ export default function ActivityList({
 }) {
   const [offset, setOffset] = useState(10);
   useEffect(() => {
-    getActivities()
+    getActivities(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeFeed]);
+  }, []);
 
   // const refreshActivities = async () => {
   //   const results = await activeFeed.get({ limit: 10 });

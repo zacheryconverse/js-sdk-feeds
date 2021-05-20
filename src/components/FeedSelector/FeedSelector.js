@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from "react";
+import { useEffect, useContext } from "react";
 import "./FeedSelector.css";
 import global from "../../icons/global.svg";
 import timeline from "../../icons/timeline.svg";
@@ -14,8 +14,8 @@ import {
 export default function FeedSelector({
   activeFeed,
   client,
-  // notificationFeed,
   getActivities,
+  notifications,
   setActiveFeed,
 }) {
   const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
@@ -25,7 +25,12 @@ export default function FeedSelector({
     NotificationFeedContext
   );
 
-  const handleFeedClick = (feedType) => {
+  useEffect(() => {
+    getActivities();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFeed]);
+
+  const handleFeedClick = async (feedType) => {
     if (feedType === "global") {
       setActiveFeed(globalFeed);
     }
@@ -37,16 +42,19 @@ export default function FeedSelector({
     }
     if (feedType === "notification") {
       setActiveFeed(notificationFeed);
+      const nFeed = client.feed("notification", client.userId);
+      await nFeed
+        .get({ mark_seen: true })
+        .then((r) => console.log("SEEN", r))
+        .catch((err) => console.log(err));
     }
-    getActivities();
   };
 
   const isNotification = () => {
-    console.log(notificationFeed);
-    return notificationFeed
-      .get()
-      .then((r) => console.log(r))
-      .catch((err) => console.log(err));
+    console.log(notifications);
+    if (notifications?.unseen) {
+      return "notification";
+    }
   };
 
   return (
@@ -85,7 +93,7 @@ export default function FeedSelector({
         // onClick={() => isNotification()}
         onClick={() => handleFeedClick("notification")}
       >
-        <div className="notification"></div>
+        <div className={isNotification()}></div>
         Notifications
       </button>
     </div>
