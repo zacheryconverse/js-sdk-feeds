@@ -41,13 +41,14 @@ export default function Login({
       setNotificationFeed(client.feed("notification", client.userId));
       setTimelineFeed(client.feed("timeline", client.userId));
       setUserFeed(client.feed("user", client.userId));
+      
       const reactions = client.feed("reaction", client.userId);
       setReactionFeed(reactions);
+
       await reactions.subscribe(async (data) => {
         setSubscribeData(data);
         console.log("Subscribe Data: ", data);
       });
-      console.log("listening to reactionFeed");
     } catch (err) {
       console.error("ERROR", err);
     }

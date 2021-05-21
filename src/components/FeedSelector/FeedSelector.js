@@ -44,12 +44,10 @@ export default function FeedSelector({
     if (feedType === "notification") {
       setActiveFeed(notificationFeed);
       const nFeed = client.feed("notification", client.userId);
-      // const results = await nFeed.get();
-      // setNotifications(results)
 
       await nFeed
         .get({ mark_seen: true, limit: 10 })
-        .then((r) => console.log("SEEN"))
+        .then((r) => console.log("SEEN", r))
         .catch((err) => console.log(err));
     }
   };
