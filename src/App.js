@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import ActivityList from "./components/ActivityList/ActivityList";
 import FeedSelector from "./components/FeedSelector/FeedSelector";
-import NotificationList from './components/NotificationList/NotificationList'
+import NotificationList from "./components/NotificationList/NotificationList";
 import Login from "./components/serverSide/Login";
 import PostToFeed from "./components/PostToFeed/PostToFeed";
 import { Banner } from "./components/Banner/Banner";
@@ -22,15 +22,20 @@ function App() {
   const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
-  const getActivities = async () => {
+  const getActivities = async (bool) => {
     let results;
-    if (activeFeed.slug !== "notification") {
+    if (activeFeed.slug !== "notification" && !bool) {
       results = await activeFeed.get({
         limit: 10,
         enrich: true,
         reactions: { own: true, counts: true, recent: true },
       });
       setActivities(results.results);
+    } else {
+      // console.log('client', client);
+      const nFeed = client.feed("notification", client.userId);
+      const results = await nFeed.get();
+      setNotifications(results);
     }
   };
   return (
@@ -58,8 +63,11 @@ function App() {
                       activeFeed={activeFeed}
                       setNotifications={setNotifications}
                     />
-                    <PostToFeed getActivities={getActivities} activeFeed={activeFeed} />
-                    {activeFeed.slug !== 'notification' ? (
+                    <PostToFeed
+                      getActivities={getActivities}
+                      activeFeed={activeFeed}
+                    />
+                    {activeFeed.slug !== "notification" ? (
                       <ActivityList
                         activeFeed={activeFeed}
                         activities={activities}
@@ -68,9 +76,9 @@ function App() {
                         subscribeData={subscribeData}
                         setActivities={setActivities}
                       />
-                    ) :
-                    <NotificationList notifications={notifications}/>
-                    }
+                    ) : (
+                      <NotificationList notifications={notifications} />
+                    )}
                   </>
                 )}
               </div>
