@@ -8,6 +8,7 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
 
   const handleLikeClick = async () => {
     try {
+      if (activity.actor.id === activeFeed.client.userId) {
       if (activity.own_reactions.like) {
         await activeFeed.client.reactions.delete(
           activity.own_reactions.like[0].id
@@ -15,12 +16,22 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
 
         setName("not-liked");
       } else {
-        await activeFeed.client.reactions.add("like", activity.id, {
-          targetFeeds: [`notification:${activity.actor.id}`],
-        });
+        await activeFeed.client.reactions.add("like", activity.id);
         setName("liked");
         getActivities();
       }
+    } else {
+       await activeFeed.client.reactions.add(
+         "like",
+         activity.id,
+         {
+           targetFeeds: [`notification:${activity.actor.id}`],
+         }
+       );
+       
+       setName("liked");
+       getActivities();
+    }
     } catch (err) {
       console.log(err);
     }
