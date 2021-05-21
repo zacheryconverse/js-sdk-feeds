@@ -31,9 +31,6 @@ function App() {
         reactions: { own: true, counts: true, recent: true },
       });
       setActivities(results.results);
-    } else {
-      results = await activeFeed.get();
-      setNotifications(results);
     }
   };
   return (
