@@ -42,7 +42,6 @@ function App() {
               <div className="App">
                 {!activeFeed ? (
                   <Login
-                    // notificationFeed={notificationFeed}
                     setActiveFeed={setActiveFeed}
                     setClient={setClient}
                     // setNotificationFeed={setNotificationFeed}
@@ -53,9 +52,9 @@ function App() {
                     <Banner />
                     <FeedSelector
                       client={client}
-                      // notificationFeed={notificationFeed}
-                      setActiveFeed={setActiveFeed}
                       getActivities={getActivities}
+                      notifications={notifications}
+                      setActiveFeed={setActiveFeed}
                       activeFeed={activeFeed}
                       setNotifications={setNotifications}
                     />
