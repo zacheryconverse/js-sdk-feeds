@@ -1,11 +1,11 @@
-import { TimelineFeedContext } from '../FeedsContext';
+import { NotificationFeedContext, TimelineFeedContext } from '../FeedsContext';
 import React, { useContext, useEffect, useState } from 'react';
 
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
   // eslint-disable-next-line no-unused-vars
   const [timelineFeed, setTimelineFeed] = useContext(TimelineFeedContext)
-
+  const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
   useEffect(() => {
     const determineIfFollowing = async () => {
       const response = await timelineFeed.following({ filter: ['user:' + activity.actor.id]})
@@ -22,9 +22,11 @@ export default function Follow({ activeFeed, activity }) {
   const follow = async () => {
     if (isFollowing) {
       timelineFeed.unfollow('user', activity.actor.id)
+      notificationFeed.unfollow('user', activity.actor.id)
       setIsFollowing(false)
     } else {
       timelineFeed.follow('user', activity.actor.id)
+      notificationFeed.follow('user', activity.actor.id)
       setIsFollowing(true)
     }
   };
