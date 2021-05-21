@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { NotificationFeedContext, TimelineFeedContext } from '../FeedsContext';
 import React, { useContext, useEffect, useState } from 'react';
 
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
-  // eslint-disable-next-line no-unused-vars
   const [timelineFeed, setTimelineFeed] = useContext(TimelineFeedContext)
   const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
   useEffect(() => {

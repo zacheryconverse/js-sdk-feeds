@@ -47,8 +47,8 @@ export default function FeedSelector({
       const results = await nFeed.get();
       setNotifications(results)
       await nFeed
-        .get({ mark_seen: true })
-        .then((r) => console.log("SEEN", r))
+        .get({ mark_seen: true, limit: 10 })
+        .then((r) => console.log("SEEN"))
         .catch((err) => console.log(err));
     }
   };
