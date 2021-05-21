@@ -23,6 +23,7 @@ export default function Comments({
       try {
         await userFeed.client.reactions.add("comment", activity.id, {
           text: comment,
+          targetFeeds: [`notification:${activity.actor.id}`],
         });
 
         await reactionFeed.addActivity({

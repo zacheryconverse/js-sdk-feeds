@@ -12,7 +12,9 @@ export default function LoveButton({ activeFeed, activity, getActivities }) {
       );
       setName("not-liked");
     } else {
-      await activeFeed.client.reactions.add("love", activity.id);
+      await activeFeed.client.reactions.add("love", activity.id, {
+        targetFeeds: [`notification:${activity.actor.id}`],
+      });
       setName("liked");
     }
 

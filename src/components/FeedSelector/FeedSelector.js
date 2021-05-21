@@ -44,8 +44,9 @@ export default function FeedSelector({
     if (feedType === "notification") {
       setActiveFeed(notificationFeed);
       const nFeed = client.feed("notification", client.userId);
-      const results = await nFeed.get();
-      setNotifications(results)
+      // const results = await nFeed.get();
+      // setNotifications(results)
+
       await nFeed
         .get({ mark_seen: true })
         .then((r) => console.log("SEEN", r))
@@ -55,6 +56,7 @@ export default function FeedSelector({
 
   const isNotification = () => {
     console.log(notifications);
+    // if (notifications?.unseen) {
     if (notifications?.unseen) {
       return "notification";
     }

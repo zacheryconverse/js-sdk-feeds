@@ -19,9 +19,8 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
           targetFeeds: [`notification:${activity.actor.id}`],
         });
         setName("liked");
+        getActivities();
       }
-
-      getActivities();
     } catch (err) {
       console.log(err);
     }
@@ -29,7 +28,6 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
 
   return (
     <button className={name} onClick={() => handleLikeClick()}>
-      {/* <img src={like} className="like-icon" alt="like button" /> */}
       <Like className="like-icon" />
     </button>
   );
