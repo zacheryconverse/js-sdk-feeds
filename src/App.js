@@ -36,7 +36,6 @@ function App() {
       setNotifications(results);
     }
   };
-console.log(activities, notifications)
   return (
     <GlobalFeedProvider>
       <UserFeedProvider>
@@ -61,11 +60,9 @@ console.log(activities, notifications)
                       setActiveFeed={setActiveFeed}
                       getActivities={getActivities}
                       activeFeed={activeFeed}
+                      setNotifications={setNotifications}
                     />
                     <PostToFeed getActivities={getActivities} activeFeed={activeFeed} />
-                    {/* {activeFeed.slug ==='notification' && 
-                    <NotificationList notifications={notifications}/>
-                    } */}
                     {activeFeed.slug !== 'notification' ? (
                       <ActivityList
                         activeFeed={activeFeed}

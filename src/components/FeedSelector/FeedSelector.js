@@ -17,6 +17,7 @@ export default function FeedSelector({
   // notificationFeed,
   getActivities,
   setActiveFeed,
+  setNotifications
 }) {
   const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
@@ -25,7 +26,7 @@ export default function FeedSelector({
     NotificationFeedContext
   );
 
-  const handleFeedClick = (feedType) => {
+  const handleFeedClick = async (feedType) => {
     if (feedType === "global") {
       setActiveFeed(globalFeed);
     }
@@ -37,6 +38,8 @@ export default function FeedSelector({
     }
     if (feedType === "notification") {
       setActiveFeed(notificationFeed);
+      const results = await client.feed('notification', client.userId).get();
+      setNotifications(results)
     }
     getActivities();
   };

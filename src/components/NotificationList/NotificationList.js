@@ -1,11 +1,11 @@
 import Notification from '../Notification/Notification'
 export default function NotificationList({ notifications }) {
-    
-    if (notifications && notifications.results.length) {
-        notifications.results.map(notification => {
-            return (<Notification notification={notification}/>)
+    if (notifications) {
+        return notifications.results.map(notification => {
+            return <Notification />
         })
-    } else if (!notifications) {
-        return 'Loading'
+    } else {
+        return ''
     }
+
 }
