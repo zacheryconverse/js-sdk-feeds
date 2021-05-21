@@ -32,7 +32,7 @@ function App() {
       });
       setActivities(results.results);
     } else {
-      console.log('client', client);
+      // console.log('client', client);
       const nFeed = client.feed("notification", client.userId);
       const results = await nFeed.get();
       setNotifications(results);

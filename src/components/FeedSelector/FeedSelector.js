@@ -55,8 +55,7 @@ export default function FeedSelector({
   };
 
   const isNotification = () => {
-    console.log(notifications);
-    // if (notifications?.unseen) {
+    // console.log(notifications);
     if (notifications?.unseen) {
       return "notification";
     }
