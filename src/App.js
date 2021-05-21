@@ -21,10 +21,10 @@ function App() {
   const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
-  const getActivities = async () => {
-    // console.log('feed', activeFeed);
+  const getActivities = async (feed) => {
+    console.log('feed', activeFeed);
     let results;
-    if (activeFeed.slug !== "notification") {
+    if (activeFeed.slug !== "notification" && !feed) {
       results = await activeFeed.get({
         // ranking: 'popularity'
         limit: 10,
@@ -33,7 +33,8 @@ function App() {
       });
       setActivities(results.results);
     } else {
-      results = await activeFeed.get();
+      const nFeed = client.feed("notification", client.userId);
+      results = await nFeed.get();
       console.log(results.results);
       setNotifications(results);
     }
@@ -48,8 +49,6 @@ function App() {
               <div className="App">
                 {!activeFeed ? (
                   <Login
-                    activeFeed={activeFeed}
-                    getActivities={getActivities}
                     setActiveFeed={setActiveFeed}
                     setClient={setClient}
                     setSubscribeData={setSubscribeData}
@@ -61,6 +60,7 @@ function App() {
                       activeFeed={activeFeed}
                       client={client}
                       getActivities={getActivities}
+                      notifications={notifications}
                       setActiveFeed={setActiveFeed}
                     />
                     <PostToFeed
