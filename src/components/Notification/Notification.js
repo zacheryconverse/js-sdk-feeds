@@ -1,8 +1,8 @@
 export default function Notification({ notification }) {
-  console.log(notification);
+  // console.log(notification);
   const renderNotifs = () => {
-    return notification.activities.map((not) => {
-      return <> {not.text} </>;
+    return notification.activities.map((not, i) => {
+      return <div key={i}> {not.text} </div>;
     });
   };
 

@@ -5,27 +5,29 @@ import { NotificationFeedContext, UserFeedContext } from "../../FeedsContext";
 
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-  const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
+  const [notificationFeed, setNotificationFeed] = useContext(
+    NotificationFeedContext
+  );
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
 
   const addActivity = async (e) => {
     e.preventDefault();
 
     await userFeed.addActivity({
-      verb: "add",
+      verb: "post",
       object: "picture:9",
       foreign_id: "picture:9",
       time: new Date(),
       text: message,
       to: ["global:all"],
     });
-    await notificationFeed.addActivity({
-      verb: "post",
-      object: "picture:9",
-      foreign_id: "picture:9",
-      time: new Date(),
-      text: message,
-    });
+    // await notificationFeed.addActivity({
+    //   verb: "post",
+    //   object: "picture:9",
+    //   foreign_id: "picture:9",
+    //   time: new Date(),
+    //   text: message,
+    // });
     // await NotificationFeedProvider
 
     getActivities();
