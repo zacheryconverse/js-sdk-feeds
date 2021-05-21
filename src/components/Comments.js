@@ -1,31 +1,31 @@
+
 import { useState, useContext } from "react";
 import CommentList from "./CommentList";
-import {
-  UserFeedContext,
-  ReactionFeedContext
-} from "../FeedsContext";
+import { UserFeedContext, ReactionFeedContext } from "../FeedsContext";
 export default function Comments({
   activeFeed,
   activity,
-  // reactionFeed,
   subscribeData,
 }) {
   const [comment, setComment] = useState("");
   const [commentCount, setCommentCount] = useState(
     activity.reaction_counts?.comment || 0
   );
-  const userFeed = useContext(UserFeedContext);
-  const reactionFeed = useContext(ReactionFeedContext);
+
+  // eslint-disable-next-line no-unused-vars
+  const [userFeed, setUserFeed] = useContext(UserFeedContext);
+  // eslint-disable-next-line no-unused-vars
+  const [reactionFeed, setReactionFeed] = useContext(ReactionFeedContext);
 
   const submitComment = async (e) => {
     e.preventDefault();
     if (comment) {
       try {
-        await userFeed[0].client.reactions.add("comment", activity.id, {
+        await userFeed.client.reactions.add("comment", activity.id, {
           text: comment,
-        })
+        });
 
-        await  reactionFeed[0].addActivity({
+        await reactionFeed.addActivity({
           object: "comment:1",
           text: comment,
           verb: "comment",
@@ -46,6 +46,7 @@ export default function Comments({
         activity={activity}
         commentCount={commentCount}
         reactionFeed={reactionFeed}
+        setCommentCount={setCommentCount}
         subscribeData={subscribeData}
       />
       <form onSubmit={submitComment}>

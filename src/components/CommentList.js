@@ -8,11 +8,12 @@ export default function CommentList({
   activity,
   commentCount,
   reactionFeed,
+  setCommentCount,
   subscribeData,
 }) {
   const [showComments, setShowComments] = useState(false);
   const [reactions, setReactions] = useState([]);
-  
+
   useEffect(() => {
     if (showComments) {
       const fetchReactions = async () => {
@@ -44,7 +45,9 @@ export default function CommentList({
                 <DeleteComment
                   activeFeed={activeFeed}
                   activity={activity}
+                  commentCount={commentCount}
                   reaction={reaction}
+                  setCommentCount={setCommentCount}
                   setReactions={setReactions}
                 />
               </div>

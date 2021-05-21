@@ -1,4 +1,4 @@
-export default function DeleteComment({ activeFeed, activity, reaction, setReactions }) {
+export default function DeleteComment({ activeFeed, activity, commentCount, setCommentCount, reaction, setReactions }) {
 
   const handleDeleteClick = async () => {
     await activeFeed.client.reactions.delete(reaction.id);
@@ -8,6 +8,7 @@ export default function DeleteComment({ activeFeed, activity, reaction, setReact
     });
 
     setReactions(response.results);
+    setCommentCount(commentCount - 1);
   };
 
   return reaction.user_id === activeFeed.client.userId ? (

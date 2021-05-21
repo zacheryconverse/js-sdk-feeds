@@ -10,21 +10,34 @@ import {
   UserFeedProvider,
   ReactionFeedProvider,
   TimelineFeedProvider,
+  NotificationFeedProvider,
 } from "./FeedsContext";
+
 function App() {
   const [activeFeed, setActiveFeed] = useState("");
-  const [client, setClient] = useState("");
   const [activities, setActivities] = useState(null);
+  const [client, setClient] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
-  const getActivities = async () => {
-    const results = await activeFeed.get({
-      // ranking: 'popularity'
-      limit: 10,
-      enrich: true,
-      reactions: { own: true, counts: true, recent: true },
-    });
-    setActivities(results.results);
+  const getActivities = async (feed) => {
+    console.log('feed', activeFeed);
+    let results;
+    if (activeFeed.slug !== "notification" && !feed) {
+      results = await activeFeed.get({
+        // ranking: 'popularity'
+        limit: 10,
+        enrich: true,
+        reactions: { own: true, counts: true, recent: true },
+      });
+      setActivities(results.results);
+    } else {
+      const nFeed = client.feed("notification", client.userId);
+      results = await nFeed.get();
+      console.log(results.results);
+      setNotifications(results);
+    }
   };
 
   return (
@@ -32,31 +45,42 @@ function App() {
       <UserFeedProvider>
         <ReactionFeedProvider>
           <TimelineFeedProvider>
-            <div className="App">
-              {!activeFeed ? (
-                <Login
-                  setActiveFeed={setActiveFeed}
-                  setClient={setClient}
-                  setSubscribeData={setSubscribeData}
-                />
-              ) : (
-                <>
-                  <Banner />
-                  <FeedSelector client={client} setActiveFeed={setActiveFeed} />
-                  <PostToFeed
-                    getActivities={getActivities}
-                  />
-                  <ActivityList
-                    activeFeed={activeFeed}
-                    activities={activities}
-                    getActivities={getActivities}
+            <NotificationFeedProvider>
+              <div className="App">
+                {!activeFeed ? (
+                  <Login
                     setActiveFeed={setActiveFeed}
-                    subscribeData={subscribeData}
-                    setActivities={setActivities}
+                    setClient={setClient}
+                    setSubscribeData={setSubscribeData}
                   />
-                </>
-              )}
-            </div>
+                ) : (
+                  <>
+                    <Banner />
+                    <FeedSelector
+                      activeFeed={activeFeed}
+                      client={client}
+                      getActivities={getActivities}
+                      notifications={notifications}
+                      setActiveFeed={setActiveFeed}
+                    />
+                    <PostToFeed
+                      activeFeed={activeFeed}
+                      getActivities={getActivities}
+                    />
+                    {activeFeed.slug !== 'notification' && (
+                      <ActivityList
+                        activeFeed={activeFeed}
+                        activities={activities}
+                        getActivities={getActivities}
+                        setActiveFeed={setActiveFeed}
+                        subscribeData={subscribeData}
+                        setActivities={setActivities}
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            </NotificationFeedProvider>
           </TimelineFeedProvider>
         </ReactionFeedProvider>
       </UserFeedProvider>

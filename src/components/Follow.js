@@ -3,11 +3,13 @@ import React, { useContext, useEffect, useState } from 'react';
 
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
-  const timelineFeed = useContext(TimelineFeedContext)
+  // const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
+  // eslint-disable-next-line no-unused-vars
+  const [timelineFeed, setTimelineFeed] = useContext(TimelineFeedContext)
 
   useEffect(() => {
     const determineIfFollowing = async () => {
-      const response = await timelineFeed[0].following({ filter: ['user:' + activity.actor.id]})
+      const response = await timelineFeed.following({ filter: ['user:' + activity.actor.id]})
       if (response.results.length) {
         setIsFollowing(true)
       } else {
@@ -15,14 +17,15 @@ export default function Follow({ activeFeed, activity }) {
       }
     }
     determineIfFollowing()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const follow = async () => {
     if (isFollowing) {
-      timelineFeed[0].unfollow('user', activity.actor.id)
+      timelineFeed.unfollow('user', activity.actor.id)
       setIsFollowing(false)
     } else {
-      timelineFeed[0].follow('user', activity.actor.id)
+      timelineFeed.follow('user', activity.actor.id)
       setIsFollowing(true)
     }
   };
