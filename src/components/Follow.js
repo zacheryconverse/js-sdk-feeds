@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 
 export default function Follow({ activeFeed, activity }) {
   const [isFollowing, setIsFollowing] = useState(null)
-  // const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
   // eslint-disable-next-line no-unused-vars
   const [timelineFeed, setTimelineFeed] = useContext(TimelineFeedContext)
 

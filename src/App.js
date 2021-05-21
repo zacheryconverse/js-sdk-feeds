@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import ActivityList from "./components/ActivityList/ActivityList";
 import FeedSelector from "./components/FeedSelector/FeedSelector";
+import NotificationList from './components/NotificationList/NotificationList'
 import Login from "./components/serverSide/Login";
 import PostToFeed from "./components/PostToFeed/PostToFeed";
 import { Banner } from "./components/Banner/Banner";
@@ -21,25 +22,17 @@ function App() {
   const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
-  const getActivities = async (feed) => {
-    console.log('feed', activeFeed);
+  const getActivities = async () => {
     let results;
-    if (activeFeed.slug !== "notification" && !feed) {
+    if (activeFeed.slug !== "notification") {
       results = await activeFeed.get({
-        // ranking: 'popularity'
         limit: 10,
         enrich: true,
         reactions: { own: true, counts: true, recent: true },
       });
       setActivities(results.results);
-    } else {
-      const nFeed = client.feed("notification", client.userId);
-      results = await nFeed.get();
-      console.log(results.results);
-      setNotifications(results);
     }
   };
-
   return (
     <GlobalFeedProvider>
       <UserFeedProvider>
@@ -51,23 +44,22 @@ function App() {
                   <Login
                     setActiveFeed={setActiveFeed}
                     setClient={setClient}
+                    // setNotificationFeed={setNotificationFeed}
                     setSubscribeData={setSubscribeData}
                   />
                 ) : (
                   <>
                     <Banner />
                     <FeedSelector
-                      activeFeed={activeFeed}
                       client={client}
                       getActivities={getActivities}
                       notifications={notifications}
                       setActiveFeed={setActiveFeed}
-                    />
-                    <PostToFeed
                       activeFeed={activeFeed}
-                      getActivities={getActivities}
+                      setNotifications={setNotifications}
                     />
-                    {activeFeed.slug !== 'notification' && (
+                    <PostToFeed getActivities={getActivities} activeFeed={activeFeed} />
+                    {activeFeed.slug !== 'notification' ? (
                       <ActivityList
                         activeFeed={activeFeed}
                         activities={activities}
@@ -76,7 +68,9 @@ function App() {
                         subscribeData={subscribeData}
                         setActivities={setActivities}
                       />
-                    )}
+                    ) :
+                    <NotificationList notifications={notifications}/>
+                    }
                   </>
                 )}
               </div>

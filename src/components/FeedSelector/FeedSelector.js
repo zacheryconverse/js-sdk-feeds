@@ -17,6 +17,7 @@ export default function FeedSelector({
   getActivities,
   notifications,
   setActiveFeed,
+  setNotifications
 }) {
   const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
@@ -43,6 +44,8 @@ export default function FeedSelector({
     if (feedType === "notification") {
       setActiveFeed(notificationFeed);
       const nFeed = client.feed("notification", client.userId);
+      const results = await nFeed.get();
+      setNotifications(results)
       await nFeed
         .get({ mark_seen: true })
         .then((r) => console.log("SEEN", r))
