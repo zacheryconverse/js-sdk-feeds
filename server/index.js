@@ -1,9 +1,9 @@
 const express = require("express");
 const stream = require("getstream");
 const cors = require("cors");
-// require("dotenv").config({ path: "server/.env" });
-const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
+require("dotenv").config({ path: "server/.env" });
+// const path = require("path");
+// require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
 
 const key = process.env.REACT_APP_KEY;
 const secret = process.env.REACT_APP_SECRET;
