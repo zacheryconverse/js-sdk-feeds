@@ -17,7 +17,6 @@ export default function FeedSelector({
   getActivities,
   notifications,
   setActiveFeed,
-  setNotifications
 }) {
   const [globalFeed, setGlobalFeed] = useContext(GlobalFeedContext);
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
@@ -43,6 +42,7 @@ export default function FeedSelector({
     }
     if (feedType === "notification") {
       setActiveFeed(notificationFeed);
+
       const nFeed = client.feed("notification", client.userId);
 
       await nFeed
@@ -53,7 +53,6 @@ export default function FeedSelector({
   };
 
   const isNotification = () => {
-    // console.log(notifications);
     if (notifications?.unseen) {
       return "notification";
     }
@@ -92,7 +91,6 @@ export default function FeedSelector({
         className={`feed-selector-btn ${
           activeFeed.slug === "notification" ? "active" : ""
         }`}
-        // onClick={() => isNotification()}
         onClick={() => handleFeedClick("notification")}
       >
         <div className={isNotification()}></div>

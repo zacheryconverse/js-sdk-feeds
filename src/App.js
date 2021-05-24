@@ -22,9 +22,9 @@ function App() {
   const [notifications, setNotifications] = useState(null);
   const [subscribeData, setSubscribeData] = useState(null);
 
-  const getActivities = async (bool) => {
+  const getActivities = async (arg) => {
     let results;
-    if (activeFeed.slug !== "notification" && !bool) {
+    if (activeFeed.slug !== "notification" && !arg) {
       results = await activeFeed.get({
         limit: 10,
         enrich: true,
@@ -32,9 +32,9 @@ function App() {
       });
       setActivities(results.results);
     } else {
-      // console.log('client', client);
       const nFeed = client.feed("notification", client.userId);
-      const results = await nFeed.get();
+
+      const results = await nFeed.get(arg);
       setNotifications(results);
     }
   };
@@ -77,7 +77,11 @@ function App() {
                         setActivities={setActivities}
                       />
                     ) : (
-                      <NotificationList notifications={notifications} />
+                      <NotificationList
+                        notifications={notifications}
+                        client={client}
+                        getActivities={getActivities}
+                      />
                     )}
                   </>
                 )}

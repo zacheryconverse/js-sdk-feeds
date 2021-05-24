@@ -1,12 +1,13 @@
 import { useState, useContext } from "react";
 import { ReactComponent as Like } from "../icons/like.svg";
-import { UserFeedContext, ReactionFeedContext } from "../FeedsContext";
+import { UserFeedContext } from "../FeedsContext";
 
 export default function LikeButton({ activeFeed, activity, getActivities }) {
   const [name, setName] = useState(
     activity.own_reactions?.like ? "liked" : "not-liked"
   );
 
+  // eslint-disable-next-line no-unused-vars
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
 
   const handleLikeClick = async () => {
@@ -33,7 +34,7 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
            targetFeeds: [`notification:${activity.actor.id}`],
          }
        );
-         console.log('like', like);
+         console.log("like", like, `notification:${activity.actor.id}`);
        setName("liked");
        getActivities();
     }

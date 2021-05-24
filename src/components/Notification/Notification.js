@@ -1,15 +1,33 @@
-export default function Notification({ notification }) {
-  // console.log(notification);
+export default function Notification({
+  notification,
+  client,
+  getActivities,
+  unread,
+  unseen,
+}) {
   const renderNotifs = () => {
-    return notification.activities.map((not, i) => {
-      return <div key={i}> {not.text} </div>;
-    });
+    return `${notification.actor_count} people ${notification.verb}ed ${
+      notification.activity_count
+    } things -- ${notification.is_read ? "Read" : "Unread"}`;
+  };
+
+  const markRead = async () => {
+    console.log("Notification Read");
+    getActivities({ mark_read: true, limit: 10 });
   };
 
   if (!notification.is_seen) {
-    return <div style={activityContainer}>{renderNotifs()}</div>;
+    return (
+      <div onClick={() => markRead()} style={activityContainer}>
+        {renderNotifs()}{` -- ${unread} unread ${unseen} unseen`}
+      </div>
+    );
   } else {
-    return <div style={activityContainer}>SEEN!--{renderNotifs()}--SEEN!</div>;
+    return (
+      <div onClick={() => markRead()} style={activityContainer}>
+        {renderNotifs()} -- Seen
+      </div>
+    );
   }
 }
 
@@ -23,4 +41,5 @@ const activityContainer = {
   margin: "10px",
   padding: "25px 50px",
   justifyContent: "center",
+  cursor: "pointer",
 };
