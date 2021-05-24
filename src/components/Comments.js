@@ -1,12 +1,7 @@
-
 import { useState, useContext } from "react";
 import CommentList from "./CommentList";
 import { UserFeedContext, ReactionFeedContext } from "../FeedsContext";
-export default function Comments({
-  activeFeed,
-  activity,
-  subscribeData,
-}) {
+export default function Comments({ activeFeed, activity, subscribeData }) {
   const [comment, setComment] = useState("");
   const [commentCount, setCommentCount] = useState(
     activity.reaction_counts?.comment || 0
@@ -21,11 +16,13 @@ export default function Comments({
     e.preventDefault();
     if (comment) {
       try {
-        await userFeed.client.reactions.add("comment", activity.id,
-        { text: comment },
-        {
-          targetFeeds: [`notification:${activity.actor.id}`],
-        }
+        await userFeed.client.reactions.add(
+          "comment",
+          activity.id,
+          { text: comment },
+          {
+            targetFeeds: [`notification:${activity.actor.id}`],
+          }
         );
 
         await reactionFeed.addActivity({
@@ -33,14 +30,6 @@ export default function Comments({
           text: comment,
           verb: "comment",
         });
-
-        // await notificationFeed.addActivity({
-        //   verb: "post",
-        //   object: "picture:9",
-        //   foreign_id: "picture:9",
-        //   time: new Date(),
-        //   text: message,
-        // });
 
         setCommentCount(commentCount + 1);
         setComment("");
