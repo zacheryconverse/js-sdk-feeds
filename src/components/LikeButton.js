@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { ReactComponent as Like } from "../icons/like.svg";
 import { UserFeedContext } from "../FeedsContext";
+import BoostPopularity from './serverSide/BoostPopularity';
 
 export default function LikeButton({ activeFeed, activity, getActivities }) {
   const [name, setName] = useState(
@@ -24,6 +25,13 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
       } else {
         console.log('my like');
         await activeFeed.client.reactions.add("like", activity.id);
+        // await activeFeed.client.activityPartialUpdate({
+        //   id: activity.id,
+        //   set: {
+        //     popularity: activity.popularity + 1
+        //   }
+        // })
+        BoostPopularity(activeFeed, activity)
         setName("liked");
         getActivities();
       }
