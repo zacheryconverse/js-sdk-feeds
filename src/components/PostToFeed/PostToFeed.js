@@ -1,37 +1,31 @@
 /* eslint-disable no-unused-vars */
+import axios from "axios";
 import { useState, useContext } from "react";
 import "./PostToFeed.css";
-import { NotificationFeedContext, UserFeedContext } from "../../FeedsContext";
+import { UserFeedContext } from "../../FeedsContext";
 
 export default function PostToFeed({ activeFeed, getActivities }) {
   const [message, setMessage] = useState("");
-  const [notificationFeed, setNotificationFeed] = useContext(
-    NotificationFeedContext
-  );
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
 
   const addActivity = async (e) => {
     e.preventDefault();
+    try {
+        await userFeed.addActivity({
+          verb: "post",
+          object: "picture:9",
+          foreign_id: "picture:9",
+          time: new Date(),
+          text: message,
+          to: ["global:all"],
+        });
 
-    await userFeed.addActivity({
-      verb: "post",
-      object: "picture:9",
-      foreign_id: "picture:9",
-      time: new Date(),
-      text: message,
-      to: ["global:all"],
-    });
-    // await notificationFeed.addActivity({
-    //   verb: "post",
-    //   object: "picture:9",
-    //   foreign_id: "picture:9",
-    //   time: new Date(),
-    //   text: message,
-    // });
-    // await NotificationFeedProvider
+        getActivities();
 
-    getActivities();
-    setMessage("");
+      setMessage("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return activeFeed.slug === "user" ? (
