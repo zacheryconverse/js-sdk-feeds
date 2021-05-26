@@ -8,9 +8,14 @@ require("dotenv").config({ path: "server/.env" });
 const key = process.env.REACT_APP_KEY;
 const secret = process.env.REACT_APP_SECRET;
 const serverClient = stream.connect(key, secret);
+// const client = stream.connect(
+//   key,
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiWmFjaGVyeSJ9.9glCoYuMkrEjPgH76kJFpyYu2UU6IOrxVZObh4sckf0",
+//   1121858
+// );
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
@@ -26,15 +31,17 @@ app.post("/token", async (req, res) => {
 });
 
 app.patch("/update", async (req, res) => {
-  const { activity, updateText } = req.body;
-  const update = await serverClient.activityPartialUpdate({
-    id: activity.id,
-    set: { text: updateText },
-  });
   try {
+    const { activity, updateText } = req.body;
+
+    const update = await serverClient.activityPartialUpdate({
+      id: activity.id,
+      set: { text: updateText },
+    });
+
     res.status(200).send(update);
   } catch (err) {
-    res.status(500).send("Server Error: ", err);
+    res.status(500).send(err);
   }
 });
 

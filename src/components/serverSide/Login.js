@@ -27,6 +27,7 @@ export default function Login({
   const [userFeed, setUserFeed] = useContext(UserFeedContext);
   const [notificationFeed, setNotificationFeed] = useContext(NotificationFeedContext)
   const [timeLine, setTimelineFeed] = useContext(TimelineFeedContext);
+
   const handleUserIDSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -41,7 +42,7 @@ export default function Login({
       setNotificationFeed(client.feed("notification", client.userId));
       setTimelineFeed(client.feed("timeline", client.userId));
       setUserFeed(client.feed("user", client.userId));
-      
+
       const reactions = client.feed("reaction", client.userId);
       setReactionFeed(reactions);
 

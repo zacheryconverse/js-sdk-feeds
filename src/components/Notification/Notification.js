@@ -16,18 +16,18 @@ export default function Notification({
     getActivities({ mark_read: true, limit: 10 });
   };
 
-  if (!notification.is_seen) {
+  if (!notification.is_read) {
     return (
       <div onClick={() => markRead()} style={activityContainer}>
-        {renderNotifs()}{` -- ${unread} unread ${unseen} unseen`}
+        {renderNotifs()}
+        {` -- ${unread} unread ${unseen} unseen`}
       </div>
     );
   } else {
-    return (
-      <div onClick={() => markRead()} style={activityContainer}>
-        {renderNotifs()} -- Seen
-      </div>
-    );
+    return null;
+    // <div onClick={() => markRead()} style={activityContainer}>
+    //   {renderNotifs()} -- Seen
+    // </div>
   }
 }
 

@@ -30,7 +30,9 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
       }
     } else {
       console.log('not me');
-       const like = await userFeed.client.reactions.add("like", activity.id,
+       const like = await userFeed.client.reactions.add(
+         "like",
+          activity.id,
          {
            targetFeeds: [`notification:${activity.actor.id}`],
          }
