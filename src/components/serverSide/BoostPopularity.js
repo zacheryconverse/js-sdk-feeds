@@ -8,3 +8,4 @@ await axios.patch("http://localhost:8000/updatePopularity", {
     activity
 }).then(r => console.log(r))
 }
+

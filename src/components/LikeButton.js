@@ -20,18 +20,11 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
         await activeFeed.client.reactions.delete(
           activity.own_reactions.like[0].id
         );
-
         setName("not-liked");
       } else {
         console.log('my like');
         await activeFeed.client.reactions.add("like", activity.id);
-        // await activeFeed.client.activityPartialUpdate({
-        //   id: activity.id,
-        //   set: {
-        //     popularity: activity.popularity + 1
-        //   }
-        // })
-        BoostPopularity(activeFeed, activity)
+        BoostPopularity(activity)
         setName("liked");
         getActivities();
       }
@@ -44,6 +37,7 @@ export default function LikeButton({ activeFeed, activity, getActivities }) {
        );
          console.log("like", like, `notification:${activity.actor.id}`);
        setName("liked");
+       BoostPopularity(activity)
        getActivities();
     }
     } catch (err) {
