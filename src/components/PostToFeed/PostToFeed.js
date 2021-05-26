@@ -19,6 +19,7 @@ export default function PostToFeed({ activeFeed, getActivities }) {
       foreign_id: "picture:9",
       time: new Date(),
       text: message,
+      popularity: 1,
       to: ["global:all"],
     });
     // await notificationFeed.addActivity({

@@ -38,4 +38,16 @@ app.patch("/update", async (req, res) => {
   }
 });
 
+app.patch("/updatePopularity", async (req, res) => {
+  const { activity } = req.body;
+  const update = serverClient.activityPartialUpdate({
+    id: activity.id,
+    set: { popularity: activity.popularity + 1 },
+  })
+  try {
+    res.status(200).send(update);
+  } catch (err) {
+    res.status(500).send("Server Error: ", err);
+  }
+})
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

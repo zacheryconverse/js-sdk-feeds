@@ -24,11 +24,21 @@ function App() {
 
   const getActivities = async (arg) => {
     let results;
-    if (activeFeed.slug !== "notification" && !arg) {
+    if (activeFeed.slug === 'user') {
       results = await activeFeed.get({
         limit: 10,
         enrich: true,
         reactions: { own: true, counts: true, recent: true },
+      });
+      setActivities(results.results);
+
+    }
+    else if (activeFeed.slug !== "notification" && !arg) {
+      results = await activeFeed.get({
+        limit: 10,
+        enrich: true,
+        reactions: { own: true, counts: true, recent: true },
+        ranking: "redditstyle"
       });
       setActivities(results.results);
     } else {
