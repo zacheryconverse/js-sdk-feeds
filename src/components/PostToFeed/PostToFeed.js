@@ -11,17 +11,17 @@ export default function PostToFeed({ activeFeed, getActivities }) {
   const addActivity = async (e) => {
     e.preventDefault();
     try {
-        await userFeed.addActivity({
-          verb: "post",
-          object: "picture:9",
-          foreign_id: "picture:9",
-          time: new Date(),
-          text: message,
-          to: ["global:all"],
-        });
+      await userFeed.addActivity({
+        verb: "post",
+        object: "picture:9",
+        foreign_id: "picture:9",
+        time: new Date(),
+        text: message,
+        popularity: 1,
+        to: ["global:all"],
+      });
 
-        getActivities();
-
+      getActivities();
       setMessage("");
     } catch (err) {
       console.log(err);
